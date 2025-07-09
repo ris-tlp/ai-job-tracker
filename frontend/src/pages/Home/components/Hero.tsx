@@ -8,7 +8,7 @@ const Hero: React.FC = () => {
   const mockupRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Element name="hero" className="relative overflow-hidden min-h-screen bg-white md:pt-15">
+    <Element name="hero" className="relative overflow-hidden min-h-screen bg-white md:pt-15 px-24">
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <img 
           src="/assets/blob-scene-haikei.svg" 
@@ -83,7 +83,7 @@ const Hero: React.FC = () => {
                 <img 
                   src="/assets/working_in_the_park.png" 
                   alt="Person working on laptop in the park"
-                  className="w-full max-w-md h-auto object-contain"
+                  className="w-full max-w-md h-full object-contain"
                 />
               </div>
             </div>
