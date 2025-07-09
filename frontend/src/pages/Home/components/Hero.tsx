@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
           
           <div className="cta-buttons flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <a 
-              href="#signup" 
+              href="/upload" 
               className="bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-white font-bold px-8 py-4 rounded-full shadow-lg text-lg transition-colors duration-200 inline-flex items-center justify-center transform active:scale-95"
             >
               <span>Get Started Free</span>
