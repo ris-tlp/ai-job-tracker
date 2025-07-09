@@ -8,7 +8,7 @@ const Hero: React.FC = () => {
   const mockupRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Element name="hero" className="relative overflow-hidden min-h-screen bg-gradient-to-br from-[var(--color-bg)] via-white to-[var(--color-surface)]">
+    <Element name="hero" className="relative overflow-hidden min-h-screen bg-gradient-to-br from-[var(--color-bg)] via-white to-[var(--color-surface)] md:pt-15">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-1/2 -left-1/4 w-[800px] h-[800px] bg-[var(--color-primary)]/5 rounded-full blur-3xl animate-float" />
         <div className="absolute -bottom-1/4 -right-1/4 w-[1000px] h-[1000px] bg-[var(--color-accent)]/5 rounded-full blur-3xl animate-float animation-delay-2000" />

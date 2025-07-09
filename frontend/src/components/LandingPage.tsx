@@ -10,7 +10,7 @@ const LandingPage: React.FC = () => {
   return (
     <>
       <Navbar />
-      <main className="flex flex-col gap-0 pt-20">
+      <main className="flex flex-col gap-0 pt-18">
         <Hero />
         <AlternatingFeatures />
         <Testimonial />

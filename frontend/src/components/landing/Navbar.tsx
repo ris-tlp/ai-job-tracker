@@ -2,7 +2,7 @@ import { Link as ScrollLink } from "react-scroll";
 import Logo from "../ui/Logo";
 
 const NAV_LINKS = [
-  { name: "Features", to: "upload" }, // Points to the first section in AlternatingFeatures
+  { name: "Features", to: "upload" }, 
   { name: "Login", to: "login" },
   { name: "Sign Up", to: "signup", cta: true },
 ];
