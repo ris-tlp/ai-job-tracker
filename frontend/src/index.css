@@ -54,11 +54,6 @@ body {
 
 
 /* Button hover styles */
-button:hover {
-  background-color: var(--color-secondary);
-  transition: background-color 0.2s ease-in-out;
-}
-
 .btn:hover {
   background-color: var(--color-secondary);
   transition: background-color 0.2s ease-in-out;
