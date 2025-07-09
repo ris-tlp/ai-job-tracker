@@ -27,7 +27,31 @@
 body {
   background: linear-gradient(135deg, #f9fafc 60%, #e0e7ff 100%);
   min-height: 100vh;
+  overflow-x: hidden;
 }
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
 
 /* Button hover styles */
 button:hover {
