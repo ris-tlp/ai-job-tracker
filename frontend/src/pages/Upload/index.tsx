@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import type { FileWithPath } from "react-dropzone";
-import AppNavbar from "./AppNavbar";
+import { AppNavbar } from "../../components/layout/AppNavbar";
 
-const ImageUploadPage: React.FC = () => {
+const UploadPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [parsedData, setParsedData] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -47,6 +47,7 @@ const ImageUploadPage: React.FC = () => {
   // Handle upload to backend
   const handleUpload = async () => {
     if (!selectedImage) return;
+    
     setLoading(true);
     const formData = new FormData();
     formData.append("image", selectedImage);
@@ -129,4 +130,4 @@ const ImageUploadPage: React.FC = () => {
   );
 };
 
-export default ImageUploadPage;
+export default UploadPage;

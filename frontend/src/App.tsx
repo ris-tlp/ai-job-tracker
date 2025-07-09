@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./components/LandingPage";
-import ImageUploadPage from "./components/ImageUploadPage";
+import HomePage from "./pages/Home";
+import UploadPage from "./pages/Upload";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/upload" element={<ImageUploadPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/upload" element={<UploadPage />} />
       </Routes>
     </Router>
   );

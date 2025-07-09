@@ -1,5 +1,5 @@
 import { Link as ScrollLink } from "react-scroll";
-import Logo from "../ui/Logo";
+import Logo from "../../../components/ui/Logo";
 
 const NAV_LINKS = [
   { name: "Features", to: "upload" }, 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import Logo from "./landing/../ui/Logo";
+import Logo from "../ui/Logo";
 
 const NAV_LINKS = [
   { name: "Upload", to: "/upload" },
@@ -36,4 +36,4 @@ const AppNavbar: React.FC = () => {
   );
 };
 
-export default AppNavbar;
+export { AppNavbar };
