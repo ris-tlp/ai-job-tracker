@@ -4,6 +4,7 @@ import Hero from "./landing/Hero";
 import AlternatingFeatures from "./landing/AlternatingFeatures";
 import Testimonial from "./landing/Testimonial";
 import FinalCTA from "./landing/FinalCTA";
+import Footer from "./landing/Footer";
 
 const LandingPage: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const LandingPage: React.FC = () => {
         <AlternatingFeatures />
         <Testimonial />
         <FinalCTA />
+        <Footer />
       </main>
     </>
   );
