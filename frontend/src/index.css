@@ -1,1 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
+
+:root {
+  --color-primary: #6c63ff;
+  --color-secondary: #00bfae;
+  --color-accent: #ffb347;
+  --color-bg: #f9fafc;
+  --color-surface: #ffffff;
+  --color-text-main: #22223b;
+  --color-text-muted: #6c757d;
+  --color-pink: #f957a6;
+  --color-green: #00e8a2;
+  --color-blue: #38b6ff;
+  --color-purple: #a259ff;
+
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: linear-gradient(135deg, #f9fafc 60%, #e0e7ff 100%);
+  min-height: 100vh;
+}
+
+/* Button hover styles */
+button:hover {
+  background-color: var(--color-secondary);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background-color: var(--color-secondary);
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Override for specific buttons if needed */
+.btn-primary:hover {
+  background-color: var(--color-secondary);
+}
+
+.btn-accent:hover {
+  background-color: var(--color-secondary);
+}
