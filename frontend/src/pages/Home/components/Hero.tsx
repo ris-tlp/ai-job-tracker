@@ -8,18 +8,29 @@ const Hero: React.FC = () => {
   const mockupRef = useRef<HTMLDivElement>(null);
 
   return (
-    <Element name="hero" className="relative overflow-hidden min-h-screen bg-gradient-to-br from-[var(--color-bg)] via-white to-[var(--color-surface)] md:pt-15">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 -left-1/4 w-[800px] h-[800px] bg-[var(--color-primary)]/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute -bottom-1/4 -right-1/4 w-[1000px] h-[1000px] bg-[var(--color-accent)]/5 rounded-full blur-3xl animate-float animation-delay-2000" />
-        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[var(--color-secondary)]/5 rounded-full blur-3xl animate-float animation-delay-4000" />
+    <Element name="hero" className="relative overflow-hidden min-h-screen bg-white md:pt-15">
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <img 
+          src="/assets/blob-scene-haikei.svg" 
+          alt="Background" 
+          className="w-full h-full object-cover"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0
+          }}
+        />
       </div>
 
       <div className="relative z-10 container mx-auto px-6 h-full flex flex-col lg:flex-row items-center justify-between py-20 lg:py-0">
 
         <div className="lg:w-1/2 text-center lg:text-left mb-16 lg:mb-0">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-[var(--color-primary)] leading-tight">
-            Land Your Dream Job <span className="text-[var(--color-secondary)]">Faster</span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-[var(--color-accent)] leading-tight">
+            Land Your Dream Job <span className="text-[var(--color-primary)]">Faster</span>
           </h1>
           
           <p className="text-xl md:text-2xl mb-10 text-[var(--color-text-muted)] max-w-2xl mx-auto lg:mx-0 leading-relaxed">
