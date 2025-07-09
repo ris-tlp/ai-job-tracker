@@ -14,11 +14,34 @@ const ImageUploadPage: React.FC = () => {
     }
   }, []);
 
+  // Handle paste event separately since react-dropzone doesn't support it out of the box
+  const handlePaste = (event: React.ClipboardEvent) => {
+    const items = event.clipboardData.items;
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (item.type.match('image/(jpeg|jpg|png)')) {
+        const file = item.getAsFile();
+        if (file) {
+          setSelectedImage(file);
+          setParsedData(null);
+          break;
+        }
+      }
+    }
+  };
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: { "image/*": [] },
-    multiple: false,
-    maxFiles: 1,
+    onDrop: (acceptedFiles: File[]) => {
+      if (acceptedFiles.length > 0) {
+        setSelectedImage(acceptedFiles[0]);
+        setParsedData(null);
+      }
+    },
+    accept: {
+      'image/jpeg': ['.jpeg', '.jpg'],
+      'image/png': ['.png']
+    },
+    maxFiles: 1
   });
 
   // Handle upload to backend
@@ -42,7 +65,7 @@ const ImageUploadPage: React.FC = () => {
   };
 
   return (
-    <>
+    <div onPaste={handlePaste}>
       <AppNavbar />
       <div className="min-h-screen bg-gradient-to-br from-[var(--color-bg)] via-white to-[var(--color-surface)] px-4 py-12 pt-32">
         <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
@@ -64,7 +87,7 @@ const ImageUploadPage: React.FC = () => {
               ) : (
                 <>
                   <p className="text-lg text-gray-700">Drag & drop, click to select, or paste an image</p>
-                  <p className="text-sm text-gray-500 mt-2">PNG, JPG, JPEG, GIF, etc.</p>
+                  <p className="text-sm text-gray-500 mt-2">PNG, JPG, or JPEG only</p>
                 </>
               )}
             </div>
@@ -102,7 +125,7 @@ const ImageUploadPage: React.FC = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
