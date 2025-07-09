@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import type { FileWithPath } from "react-dropzone";
 import AppNavbar from "./AppNavbar";
 
 const ImageUploadPage: React.FC = () => {
@@ -7,14 +8,7 @@ const ImageUploadPage: React.FC = () => {
   const [parsedData, setParsedData] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (acceptedFiles && acceptedFiles.length > 0) {
-      setSelectedImage(acceptedFiles[0]);
-      setParsedData(null);
-    }
-  }, []);
-
-  // Handle paste event separately since react-dropzone doesn't support it out of the box
+  // Handle paste event for clipboard images
   const handlePaste = (event: React.ClipboardEvent) => {
     const items = event.clipboardData.items;
     for (let i = 0; i < items.length; i++) {
@@ -30,13 +24,19 @@ const ImageUploadPage: React.FC = () => {
     }
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: (acceptedFiles: File[]) => {
-      if (acceptedFiles.length > 0) {
-        setSelectedImage(acceptedFiles[0]);
+  // Handle file drop/selection
+  const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
+    if (acceptedFiles && acceptedFiles.length > 0) {
+      const file = acceptedFiles[0];
+      if (file.type.match('image/(jpeg|jpg|png)')) {
+        setSelectedImage(file);
         setParsedData(null);
       }
-    },
+    }
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
     accept: {
       'image/jpeg': ['.jpeg', '.jpg'],
       'image/png': ['.png']
@@ -58,7 +58,7 @@ const ImageUploadPage: React.FC = () => {
       const data = await res.json();
       setParsedData(JSON.stringify(data, null, 2));
     } catch (err) {
-      setParsedData("Error parsing image.");
+      setParsedData(`Error parsing image.: ${err}`);
     } finally {
       setLoading(false);
     }
