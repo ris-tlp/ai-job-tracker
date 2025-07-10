@@ -10,7 +10,6 @@ const UploadPage: React.FC = () => {
   const [parsedData, setParsedData] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // Handle paste event for clipboard images
   const handlePaste = (event: React.ClipboardEvent) => {
     const items = event.clipboardData.items;
     for (let i = 0; i < items.length; i++) {
@@ -26,7 +25,6 @@ const UploadPage: React.FC = () => {
     }
   };
 
-  // Handle file drop/selection
   const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
@@ -51,17 +49,27 @@ const UploadPage: React.FC = () => {
 
     setLoading(true);
     const formData = new FormData();
-    formData.append('image', selectedImage);
+    formData.append('file', selectedImage, selectedImage.name);
 
     try {
-      const res = await fetch('http://localhost:8000/api/parse-image', {
+      const res = await fetch('http://localhost:8000/api/v1/ocr', {
         method: 'POST',
         body: formData,
+        headers: {
+          'Accept': 'application/json',
+        },
       });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.detail || 'Failed to process image');
+      }
+
       const data = await res.json();
       setParsedData(JSON.stringify(data, null, 2));
     } catch (err) {
-      setParsedData(`Error parsing image: ${err}`);
+      console.error('Upload error:', err);
+      setParsedData(`Error parsing image: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setLoading(false);
     }
