@@ -13,7 +13,7 @@ from app.services.ocr import OCRService
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter()
+router = APIRouter(tags=["images"])
 ocr_service = OCRService()
 
 
@@ -40,7 +40,7 @@ def create_error_response(
 
 
 @router.post(
-	"",
+	"/images",
 	response_model=TextResponse,
 	status_code=status.HTTP_200_OK,
 	summary="Extract text from an image",
