@@ -21,6 +21,7 @@ class Settings(BaseSettings):
 	BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
 		"http://localhost:3000",  # Default React dev server
 		"http://localhost:8000",  # Default FastAPI dev server
+		"http://localhost:5173" 
 	]
 
 	LOG_LEVEL: str = "info"
