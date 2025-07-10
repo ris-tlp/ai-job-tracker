@@ -15,6 +15,7 @@ dependencies = [
     "pydantic-settings>=2.0.0",
     "starlette>=0.36.0",
     "numpy>=2.3.1",
+    "sqlmodel>=0.0.24",
 ]
 
 [project.optional-dependencies]
