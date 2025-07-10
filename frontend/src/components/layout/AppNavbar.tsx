@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import Logo from "../ui/Logo";
 
 const NAV_LINKS = [
-  { name: "Upload", to: "/upload" },
   { name: "Job Tracker", to: "/tracker" },
+{ name: "Upload", to: "/upload" },
 ];
 
 const AppNavbar: React.FC = () => {
@@ -23,8 +23,8 @@ const AppNavbar: React.FC = () => {
               to={link.to}
               className={`text-base font-semibold px-4 py-2 rounded transition-colors duration-150 cursor-pointer ${
                 location.pathname === link.to
-                  ? 'bg-[var(--color-primary)] text-white font-bold shadow'
-                  : 'text-gray-700 hover:text-[var(--color-primary)] hover:bg-gray-100'
+                  ? 'bg-[var(--color-primary)] text-white font-bold shadow hover:bg-[var(--color-secondary)]'
+                  : 'text-gray-700 hover:text-[var(--color-primary)]'
               }`}
             >
               {link.name}

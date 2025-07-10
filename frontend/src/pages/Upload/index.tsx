@@ -73,13 +73,27 @@ const UploadPage: React.FC = () => {
   };
 
   return (
-    <div onPaste={handlePaste}>
+    <div onPaste={handlePaste} className="relative min-h-screen bg-white">
       <AppNavbar />
-      <div className="min-h-screen bg-gradient-to-br from-[var(--color-bg)] via-white to-[var(--color-surface)] px-4 py-12 pt-32">
-        <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
+      <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none">
+        <img 
+          src="/assets/circle-scatter-haikei.svg" 
+          alt="Background" 
+          className="w-full h-full object-cover opacity-70"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
+      </div>
+      <div className="relative z-10 min-h-screen bg-gradient-to-br from-[var(--color-bg)]/30 via-white/30 to-[var(--color-surface)]/30 backdrop-blur-sm px-4 py-12 pt-32">
+        <div className="w-full max-w-3xl mx-auto flex flex-col items-center min-h-[60vh] justify-center">
           <div
-            className={`w-full bg-white rounded-2xl shadow p-8 flex flex-col items-center gap-6 transition-all duration-500 ease-in-out ${selectedImage ? 'translate-y-0' : 'translate-y-40'
-              }`}
+            className={`w-full bg-white rounded-2xl shadow p-8 flex flex-col items-center gap-6 transition-all duration-500 ease-in-out`}
           >
             <h1 className="text-3xl font-bold mb-2 text-[var(--color-primary)]">Upload, Drag, or Paste an Image</h1>
             <div
