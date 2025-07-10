@@ -27,11 +27,11 @@ class LoggingMiddleware(BaseHTTPMiddleware):
 		Process the request and log the details.
 
 		Args:
-		    request: The incoming request
-		    call_next: Next middleware or endpoint handler
+			request: The incoming request
+			call_next: Next middleware or endpoint handler
 
 		Returns:
-		    Response: The response to be sent back
+			Response: The response to be sent back
 		"""
 		# Skip logging for health checks to reduce noise
 		if request.url.path == f"{settings.API_V1_STR}/health":

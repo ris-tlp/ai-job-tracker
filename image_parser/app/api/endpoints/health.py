@@ -21,7 +21,7 @@ async def health_check() -> Dict[str, str]:
 	Health check endpoint.
 
 	Returns:
-	    Dict containing the service status and timestamp
+		Dict containing the service status and timestamp
 	"""
 	return {
 		"status": "healthy",
