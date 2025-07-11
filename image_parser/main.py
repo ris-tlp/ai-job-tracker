@@ -14,7 +14,7 @@ def create_application() -> FastAPI:
 		title=settings.PROJECT_NAME,
 		description="API for extracting text from images using OCR",
 		version=settings.VERSION,
-		openapi_url=f"{settings.API_V1_STR}/openapi.json",
+		openapi_url=f"/{settings.API_V1_STR}/openapi.json",
 		docs_url="/docs",
 		redoc_url="/redoc",
 	)
@@ -30,7 +30,7 @@ def create_application() -> FastAPI:
 			allow_headers=["*"],
 		)
 
-	app.include_router(api_router, prefix=settings.API_V1_STR)
+	app.include_router(api_router, prefix=f"/api/{settings.API_V1_STR}")
 
 	return app
 
