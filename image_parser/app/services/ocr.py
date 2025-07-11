@@ -6,7 +6,7 @@ import logging
 import pytesseract
 from PIL import Image, UnidentifiedImageError
 
-from app.exceptions.ocr import (
+from app.exceptions import (
 	ImageProcessingError,
 	OCRServiceError,
 	UnsupportedImageError,

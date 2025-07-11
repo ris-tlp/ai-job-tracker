@@ -8,20 +8,20 @@ from app.core.config import settings
 
 # Create async engine
 engine = create_async_engine(
-    settings.database_url,
-    echo=True,
-    future=True,
-    pool_pre_ping=True,
-    pool_size=20,
-    max_overflow=10,
+	settings.database_url,
+	echo=True,
+	future=True,
+	pool_pre_ping=True,
+	pool_size=20,
+	max_overflow=10,
 )
 
 # Create async session factory
 async_session_factory = sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False,
-    autoflush=False,
+	bind=engine,
+	class_=AsyncSession,
+	expire_on_commit=False,
+	autoflush=False,
 )
 
 

@@ -3,17 +3,17 @@ import logging
 from fastapi import APIRouter, File, HTTPException, UploadFile, status
 from fastapi.responses import JSONResponse
 
-from app.exceptions.ocr import (
+from app.exceptions import (
 	ImageProcessingError,
 	OCRServiceError,
 	UnsupportedImageError,
 )
-from app.schemas.ocr import ErrorResponse, TextResponse
+from app.schemas import ErrorResponse, TextResponse
 from app.services.ocr import OCRService
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(tags=["images"])
+router = APIRouter(tags=["parsed-images"])
 ocr_service = OCRService()
 
 
@@ -40,7 +40,7 @@ def create_error_response(
 
 
 @router.post(
-	"/images",
+	"",
 	response_model=TextResponse,
 	status_code=status.HTTP_200_OK,
 	summary="Extract text from an image",

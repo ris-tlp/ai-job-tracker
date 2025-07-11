@@ -52,7 +52,7 @@ const UploadPage: React.FC = () => {
     formData.append('file', selectedImage, selectedImage.name);
 
     try {
-      const res = await fetch('http://localhost:8000/api/v1/ocr', {
+      const res = await fetch('http://localhost:8000/v1/jobs/parsed-images', {
         method: 'POST',
         body: formData,
         headers: {
