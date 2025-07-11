@@ -17,6 +17,7 @@ dependencies = [
     "numpy>=2.3.1",
     "sqlmodel>=0.0.24",
     "asyncpg>=0.30.0",
+    "greenlet>=3.2.3",
 ]
 
 [project.optional-dependencies]
