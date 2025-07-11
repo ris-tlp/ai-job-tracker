@@ -1,36 +1,45 @@
-"""Application configuration settings."""
-
-from typing import List, Optional
-
-from pydantic import AnyHttpUrl, Field
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-	"""Application settings."""
+    HOST: str = Field(..., description="Server host")
+    PORT: int = Field(..., description="Server port")
+    RELOAD: bool = Field(..., description="Enable auto-reload")
+    PROJECT_NAME: str = Field(..., description="Project name")
+    VERSION: str = Field(..., description="Project version")
+    API_V1_STR: str = Field(..., description="API v1 prefix")
 
-	PROJECT_NAME: str = "Image Parser API"
-	SERVICE_NAME: str = "image_parser"
-	VERSION: str = "0.1.0"
-	API_V1_STR: str = "/api/v1"
+    BACKEND_CORS_ORIGINS: str = Field(
+        ...,
+        description="Comma-separated list of allowed CORS origins"
+    )
 
-	HOST: str = "0.0.0.0"
-	PORT: int = 8000
-	RELOAD: bool = True
+    LOG_LEVEL: str = Field(..., description="Logging level")
 
-	BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
-		"http://localhost:3000",  # Default React dev server
-		"http://localhost:8000",  # Default FastAPI dev server
-		"http://localhost:5173",
-	]
+    POSTGRES_USER: str = Field(..., description="PostgreSQL username")
+    POSTGRES_PASSWORD: str = Field(..., description="PostgreSQL password")
+    POSTGRES_SERVER: str = Field(..., description="PostgreSQL server host")
+    POSTGRES_PORT: str = Field(..., description="PostgreSQL server port")
+    POSTGRES_DB: str = Field(..., description="PostgreSQL database name")
 
-	LOG_LEVEL: str = "info"
+    @property
+    def database_url(self) -> str:
+        return (
+            f"postgresql+asyncpg://"
+            f"{self.POSTGRES_USER}:"
+            f"{self.POSTGRES_PASSWORD}@"
+            f"{self.POSTGRES_SERVER}:"
+            f"{self.POSTGRES_PORT}/"
+            f"{self.POSTGRES_DB}"
+        )
 
-	model_config = SettingsConfigDict(
-		env_file=".env",
-		env_file_encoding="utf-8",
-		case_sensitive=True,
-	)
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=True,
+        extra="forbid",
+    )
 
 
 settings = Settings()
