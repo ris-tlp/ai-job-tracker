@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { useDropzone, type FileWithPath } from "react-dropzone";
-import { useUploadImageMutation } from "../../services/uploadApi";
+import { useParseImageMutation } from "../../services/parseImageApi";
 import { AppNavbar } from "../../components/layout/AppNavbar";
 import { UploadPreview } from "./components/UploadPreview";
 import { ParsedDataViewer } from "./components/ParsedDataViewer";
@@ -8,7 +8,7 @@ import { ParsedDataViewer } from "./components/ParsedDataViewer";
 const UploadPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [parsedData, setParsedData] = useState<string | null>(null);
-  const [uploadImage, { isLoading }] = useUploadImageMutation();
+  const [parseImage, { isLoading }] = useParseImageMutation();
 
   const handlePaste = (event: React.ClipboardEvent) => {
     const items = event.clipboardData.items;
@@ -48,7 +48,7 @@ const UploadPage: React.FC = () => {
     if (!selectedImage) return;
 
     try {
-      const result = await uploadImage(selectedImage).unwrap();
+      const result = await parseImage(selectedImage).unwrap();
       setParsedData(JSON.stringify(result, null, 2));
     } catch (err) {
       console.error("Upload error:", err);

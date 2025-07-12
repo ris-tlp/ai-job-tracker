@@ -17,7 +17,7 @@ export const parseImageApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    uploadImage: builder.mutation<ParseImageResponse, File>({
+    parseImage: builder.mutation<ParseImageResponse, File>({
       query: (file) => {
         const formData = new FormData();
         formData.append("file", file);
@@ -31,4 +31,4 @@ export const parseImageApi = createApi({
   }),
 });
 
-export const { useUploadImageMutation } = parseImageApi;
+export const { useParseImageMutation } = parseImageApi;

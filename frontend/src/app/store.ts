@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { parseImageApi } from "../services/uploadApi";
+import { parseImageApi } from "../services/parseImageApi";
 
 export const store = configureStore({
   reducer: {
