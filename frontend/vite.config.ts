@@ -8,6 +8,14 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react(), tailwindcss()],
+    resolve: {
+      alias: [
+        {
+          find: '@',
+          replacement: '/src',
+        },
+      ],
+    },
     server: {
       proxy: {
         '/api': {
