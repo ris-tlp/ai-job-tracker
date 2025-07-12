@@ -34,7 +34,7 @@ class Settings(BaseSettings):
 		)
 
 	model_config = SettingsConfigDict(
-		env_file=".env",
+		env_file=[".env", "../.env.db"],
 		env_file_encoding="utf-8",
 		case_sensitive=True,
 		extra="forbid",

@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.api import api_router
 from app.core.config import settings
+from app.database import create_db_and_tables
 from app.middleware.logging_middleware import LoggingMiddleware
 
 
@@ -36,6 +37,11 @@ def create_application() -> FastAPI:
 
 
 app = create_application()
+
+
+@app.on_event("startup")
+async def on_startup():
+	await create_db_and_tables()
 
 
 if __name__ == "__main__":
