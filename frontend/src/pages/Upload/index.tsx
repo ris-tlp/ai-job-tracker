@@ -1,7 +1,6 @@
-import React, { useState, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import { API_URL } from "../../config";
-import type { FileWithPath } from "react-dropzone";
+import { useState, useCallback } from "react";
+import { useDropzone, type FileWithPath } from "react-dropzone";
+import { useUploadImageMutation } from "../../services/uploadApi";
 import { AppNavbar } from "../../components/layout/AppNavbar";
 import { UploadPreview } from "./components/UploadPreview";
 import { ParsedDataViewer } from "./components/ParsedDataViewer";
@@ -9,7 +8,7 @@ import { ParsedDataViewer } from "./components/ParsedDataViewer";
 const UploadPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [parsedData, setParsedData] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [uploadImage, { isLoading }] = useUploadImageMutation();
 
   const handlePaste = (event: React.ClipboardEvent) => {
     const items = event.clipboardData.items;
@@ -48,31 +47,12 @@ const UploadPage: React.FC = () => {
   const handleUpload = async () => {
     if (!selectedImage) return;
 
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("file", selectedImage, selectedImage.name);
-
     try {
-      const res = await fetch(`${API_URL}/jobs/parsed-images`, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.detail || "Failed to process image");
-      }
-
-      const data = await res.json();
-      setParsedData(JSON.stringify(data, null, 2));
+      const result = await uploadImage(selectedImage).unwrap();
+      setParsedData(JSON.stringify(result, null, 2));
     } catch (err) {
       console.error("Upload error:", err);
       setParsedData(`Error parsing image: ${err instanceof Error ? err.message : String(err)}`);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -133,7 +113,7 @@ const UploadPage: React.FC = () => {
             <>
               <UploadPreview
                 selectedImage={selectedImage}
-                loading={loading}
+                loading={isLoading}
                 onUpload={handleUpload}
                 onRemove={handleRemoveImage}
               />
