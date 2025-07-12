@@ -11,7 +11,7 @@ export type ParseImageResponse = {
 export const parseImageApi = createApi({
   reducerPath: "parseImageApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
+    baseUrl: "/api/parser",
     prepareHeaders: (headers) => {
       return headers;
     },

@@ -20,12 +20,12 @@ export default defineConfig(({ mode }) => {
         '/api/parser': {
           target: env.VITE_API_URL_IMAGE_PARSER,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, '/api/v1')
+          rewrite: (path) => path.replace(/^\/api\/parser/, env.VITE_API_VERSION)
         },
         '/api/analyzer': {
           target: env.VITE_API_URL_IMAGE_ANALYZER,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, '/api/v1')
+          rewrite: (path) => path.replace(/^\/api\/analyzer/, env.VITE_API_VERSION)
         }
       }
     },
