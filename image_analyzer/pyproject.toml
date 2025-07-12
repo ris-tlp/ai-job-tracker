@@ -1,0 +1,93 @@
+[project]
+name = "image-parser"
+version = "0.1.0"
+description = "FastAPI service for OCR text extraction from images"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi[standard]>=0.116.0",
+    "uvicorn[standard]>=0.24.0",
+    "pytesseract>=0.3.13",
+    "python-multipart>=0.0.6",
+    "Pillow>=10.0.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "starlette>=0.36.0",
+    "numpy>=2.3.1",
+    "sqlmodel>=0.0.24",
+    "asyncpg>=0.30.0",
+    "greenlet>=3.2.3",
+    "langchain>=0.3.26",
+    "langchain-core>=0.3.68",
+    "langchain-community>=0.3.27",
+    "langchain-openai>=0.3.27",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.0.292",
+    "mypy>=1.5.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+]
+
+[tool.ruff]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+# Black-equivalent config
+line-length = 88
+indent-width = 4
+target-version = "py39"
+
+[tool.ruff.lint]
+select = [
+    "W", # Pycodestyle warnings
+    "E", # Pycodestyle errors
+    "I", # Isort
+    "N", # PEP8 naming conventions,
+    "RUF"
+]
+
+ignore = [
+    "F403", # Modularized project, * imports are fine
+    "F405", # Modularized project, * imports are fine
+    "C901", # McCabe Complexity
+    "E501", # Supress line length for legacy code as it can't be autoformatted, newer code will be auto'd,
+    "W191", # This project uses tabs
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "tab"
+skip-magic-trailing-comma = false
+line-ending = "auto"
