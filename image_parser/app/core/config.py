@@ -7,6 +7,7 @@ class Settings(BaseSettings):
 	PORT: int = Field(..., description="Server port")
 	RELOAD: bool = Field(..., description="Enable auto-reload")
 	PROJECT_NAME: str = Field(..., description="Project name")
+	SERVICE_NAME: str = Field(..., description="Service name")
 	VERSION: str = Field(..., description="Project version")
 	API_V1_STR: str = Field(..., description="API v1 prefix")
 
