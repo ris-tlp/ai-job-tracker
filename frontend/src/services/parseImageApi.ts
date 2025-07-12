@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-type ParseImageResponse = {
+export type ParseImageResponse = {
   id: string;
   image_name: string;
   parsed_text: string;

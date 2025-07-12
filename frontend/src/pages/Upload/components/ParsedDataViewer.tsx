@@ -1,7 +1,9 @@
 import React from "react";
 
+import type { ParseImageResponse } from "@/services/parseImageApi";
+
 interface ParsedDataViewerProps {
-  parsedData: string | null;
+  parsedData: ParseImageResponse | null;
 }
 
 export const ParsedDataViewer: React.FC<ParsedDataViewerProps> = ({ parsedData }) => {
@@ -12,9 +14,13 @@ export const ParsedDataViewer: React.FC<ParsedDataViewerProps> = ({ parsedData }
       <h3 className="text-xl font-semibold text-[var(--color-secondary)] mb-4">
         Parsed Information
       </h3>
-      <div className="w-full bg-gray-100 rounded p-4 text-left text-sm font-mono whitespace-pre-wrap max-h-96 overflow-y-auto">
-        {parsedData}
+      <div className="mb-2 text-base font-semibold">
+        File Name: <span className="font-mono text-blue-700">{parsedData.image_name}</span>
+      </div>
+      <div className="w-full bg-gray-100 rounded p-4 text-left text-sm font-mono whitespace-pre-wrap max-h-96 overflow-y-auto border border-gray-300">
+        {parsedData.parsed_text}
       </div>
     </div>
   );
 };
+
