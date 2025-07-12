@@ -1,15 +1,39 @@
 version: '3.9'
 
 services:
-  db:
+  db_parser:
     image: postgres:15-alpine
     restart: unless-stopped
     env_file:
-      - .env.db
+      - ./image_parser/.env.db
     ports:
       - "5433:5432"
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata_parser:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  db_analyzer:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    env_file:
+      - ./image_analyzer/.env.db
+    ports:
+      - "5434:5432"
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - pgdata_analyzer:/var/lib/postgresql/data
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
 
 volumes:
+  pgdata_parser:
+  pgdata_analyzer:
   pgdata:
