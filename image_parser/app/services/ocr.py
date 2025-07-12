@@ -21,7 +21,7 @@ class OCRService:
 	def __init__(self, lang: str = "eng"):
 		"""
 		Args:
-		    lang: Language code for OCR
+            lang: Language code for OCR
 		"""
 		self.lang = lang
 		self.logger = logging.getLogger(f"{__name__}.{self.__class__.__name__}")
@@ -31,15 +31,15 @@ class OCRService:
 		"""Extract text from image bytes.
 
 		Args:
-		    image_data: Raw image data as bytes
+            image_data: Raw image data as bytes
 
 		Returns:
-		    Extracted text as a string
+            Extracted text as a string
 
 		Raises:
-		    UnsupportedImageError: If the image format is not supported
-		    ImageProcessingError: If there's an error processing the image
-		    OCRServiceError: If there's an error during OCR processing
+            UnsupportedImageError: If the image format is not supported
+            ImageProcessingError: If there's an error processing the image
+            OCRServiceError: If there's an error during OCR processing
 		"""
 		self.logger.debug("Starting text extraction from image bytes")
 		try:
@@ -98,12 +98,12 @@ class OCRService:
 		Extract text from image and save the result to the database using the repository.
 
 		Args:
-		    image_data: Raw image data as bytes
-		    image_name: The filename of the uploaded image
-		    repository: The repository instance for DB operations
+            image_data: Raw image data as bytes
+            image_name: The filename of the uploaded image
+            repository: The repository instance for DB operations
 
 		Returns:
-		    ParsedImageDTO: The saved parsed image DTO
+            ParsedImageDTO: The saved parsed image DTO
 		"""
 		text = await self.extract_text(image_data)
 		return await repository.create_parsed_image(

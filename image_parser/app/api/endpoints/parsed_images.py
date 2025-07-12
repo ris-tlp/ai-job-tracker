@@ -25,13 +25,13 @@ def create_error_response(
 	"""Create a standardized error response.
 
 	Args:
-	    error: The exception that was raised
-	    status_code: HTTP status code
-	    error_type: Type of error for client-side handling
-	    include_details: Whether to include error details in the response
+		error: The exception that was raised
+		status_code: HTTP status code
+		error_type: Type of error for client-side handling
+		include_details: Whether to include error details in the response
 
 	Returns:
-	    JSONResponse with error details
+		JSONResponse with error details
 	"""
 	error_data = {"error": str(error), "type": error_type}
 
@@ -70,13 +70,13 @@ async def extract_text(
 	"""Extract text from an uploaded image.
 
 	Args:
-	    file: The image file to process (supports common formats like PNG, JPEG, etc.)
+		file: The image file to process (supports common formats like PNG, JPEG, etc.)
 
 	Returns:
-	    TextResponse containing the extracted text and metadata
+		TextResponse containing the extracted text and metadata
 
 	Raises:
-	    HTTPException: With appropriate status code and error details
+		HTTPException: With appropriate status code and error details
 	"""
 	logger.info(f"Received request to process file: {file.filename}")
 
