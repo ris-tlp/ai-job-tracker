@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { API_URL } from '../../config';
 import type { FileWithPath } from 'react-dropzone';
 import { AppNavbar } from '../../components/layout/AppNavbar';
 import { UploadPreview } from './components/UploadPreview';
@@ -52,7 +53,7 @@ const UploadPage: React.FC = () => {
     formData.append('file', selectedImage, selectedImage.name);
 
     try {
-      const res = await fetch('http://localhost:8000/api/v1/jobs/parsed-images', {
+      const res = await fetch(`${API_URL}/jobs/parsed-images`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -84,9 +85,9 @@ const UploadPage: React.FC = () => {
     <div onPaste={handlePaste} className="relative min-h-screen bg-white">
       <AppNavbar />
       <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none">
-        <img 
-          src="/assets/circle-scatter-haikei.svg" 
-          alt="Background" 
+        <img
+          src="/assets/circle-scatter-haikei.svg"
+          alt="Background"
           className="w-full h-full object-cover opacity-70"
           style={{
             position: 'fixed',
