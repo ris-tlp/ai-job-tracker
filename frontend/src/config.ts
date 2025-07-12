@@ -1,1 +1,2 @@
-export const API_URL = import.meta.env.VITE_API_URL;
+// Using relative URL to leverage Vite's proxy
+export const API_URL = '/api';
