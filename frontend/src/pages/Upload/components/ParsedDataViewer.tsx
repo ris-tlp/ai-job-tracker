@@ -1,12 +1,10 @@
-import React from 'react';
+import React from "react";
 
 interface ParsedDataViewerProps {
   parsedData: string | null;
 }
 
-export const ParsedDataViewer: React.FC<ParsedDataViewerProps> = ({
-  parsedData,
-}) => {
+export const ParsedDataViewer: React.FC<ParsedDataViewerProps> = ({ parsedData }) => {
   if (!parsedData) return null;
 
   return (

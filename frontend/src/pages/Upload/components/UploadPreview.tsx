@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faExpand } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes, faExpand } from "@fortawesome/free-solid-svg-icons";
 
 interface UploadPreviewProps {
   selectedImage: File | null;
@@ -36,7 +36,10 @@ export const UploadPreview: React.FC<UploadPreviewProps> = ({
           Image Preview
         </h2>
         <div className="w-full flex justify-center bg-gray-50 rounded-lg p-4 relative">
-          <div className="relative group cursor-pointer overflow-hidden rounded-lg" onClick={openModal}>
+          <div
+            className="relative group cursor-pointer overflow-hidden rounded-lg"
+            onClick={openModal}
+          >
             <img
               src={URL.createObjectURL(selectedImage)}
               alt="Preview"
@@ -64,22 +67,22 @@ export const UploadPreview: React.FC<UploadPreviewProps> = ({
             disabled={loading}
             className={`px-6 py-2 rounded-full font-medium text-white shadow ${
               loading
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-[var(--color-accent)] hover:bg-[var(--color-secondary)]'
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-[var(--color-accent)] hover:bg-[var(--color-secondary)]"
             } transition-colors`}
           >
-            {loading ? 'Processing...' : 'Upload Image'}
+            {loading ? "Processing..." : "Upload Image"}
           </button>
         </div>
       </div>
 
       {/* Full Screen Modal */}
       {isModalOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/30 backdrop-blur-md z-50 flex items-center justify-center p-4"
           onClick={closeModal}
         >
-          <button 
+          <button
             className="absolute top-6 right-6 bg-white/90 hover:bg-white text-gray-800 w-10 h-10 rounded-full flex items-center justify-center text-xl hover:scale-110 transition-all duration-200 shadow-lg"
             onClick={closeModal}
             aria-label="Close modal"

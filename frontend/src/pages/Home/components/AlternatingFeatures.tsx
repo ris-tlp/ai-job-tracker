@@ -1,11 +1,7 @@
 import React from "react";
 import { Element } from "react-scroll";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { 
-  faUpload, 
-  faBolt, 
-  faChartLine 
-} from "@fortawesome/free-solid-svg-icons";
+import { faUpload, faBolt, faChartLine } from "@fortawesome/free-solid-svg-icons";
 
 const sections = [
   {
@@ -15,7 +11,13 @@ const sections = [
     color: "primary",
     reverse: false,
     name: "upload",
-    icon: <FontAwesomeIcon icon={faUpload} className="text-3xl" style={{ color: `var(--color-primary)` }} />
+    icon: (
+      <FontAwesomeIcon
+        icon={faUpload}
+        className="text-3xl"
+        style={{ color: `var(--color-primary)` }}
+      />
+    ),
   },
   {
     img: "https://picsum.photos/900/1600",
@@ -24,7 +26,13 @@ const sections = [
     color: "secondary",
     reverse: true,
     name: "summaries",
-    icon: <FontAwesomeIcon icon={faBolt} className="text-3xl" style={{ color: `var(--color-secondary)` }} />
+    icon: (
+      <FontAwesomeIcon
+        icon={faBolt}
+        className="text-3xl"
+        style={{ color: `var(--color-secondary)` }}
+      />
+    ),
   },
   {
     img: "https://picsum.photos/900/1600",
@@ -33,32 +41,54 @@ const sections = [
     color: "accent",
     reverse: false,
     name: "tracker",
-    icon: <FontAwesomeIcon icon={faChartLine} className="text-3xl" style={{ color: `var(--color-accent)` }} />
-  }
+    icon: (
+      <FontAwesomeIcon
+        icon={faChartLine}
+        className="text-3xl"
+        style={{ color: `var(--color-accent)` }}
+      />
+    ),
+  },
 ];
 
 const AlternatingFeatures: React.FC = () => (
   <section className="w-full">
     {sections.map((section) => (
-      <Element name={section.name} key={section.title} className={`flex flex-col ${section.reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-stretch min-h-[50vh] w-full`}>
+      <Element
+        name={section.name}
+        key={section.title}
+        className={`flex flex-col ${section.reverse ? "md:flex-row-reverse" : "md:flex-row"} items-stretch min-h-[50vh] w-full`}
+      >
         <div className="md:w-1/2 w-full h-[50vh] flex items-center justify-center">
           <img
-  src={section.img}
-  alt={section.title}
-  className={`w-full h-full object-cover rounded-none md:shadow-xl
-    ${section.reverse ? 'md:rounded-l-3xl md:border-l-8' : 'md:rounded-r-3xl md:border-r-8'}
+            src={section.img}
+            alt={section.title}
+            className={`w-full h-full object-cover rounded-none md:shadow-xl
+    ${section.reverse ? "md:rounded-l-3xl md:border-l-8" : "md:rounded-r-3xl md:border-r-8"}
   `}
-  style={{ borderColor: `var(--color-${section.color})` }}
-/>
+            style={{ borderColor: `var(--color-${section.color})` }}
+          />
         </div>
-        <div className={`md:w-1/2 w-full flex flex-col justify-center items-center px-8 py-16 ${section.reverse ? "bg-[var(--color-bg)]" : "bg-[var(--color-surface)]"}`}>
-          <div className="w-16 h-16 flex items-center justify-center rounded-full mb-6" style={{
-            color: 'white'
-          }}>
+        <div
+          className={`md:w-1/2 w-full flex flex-col justify-center items-center px-8 py-16 ${section.reverse ? "bg-[var(--color-bg)]" : "bg-[var(--color-surface)]"}`}
+        >
+          <div
+            className="w-16 h-16 flex items-center justify-center rounded-full mb-6"
+            style={{
+              color: "white",
+            }}
+          >
             {section.icon}
           </div>
-          <h2 className="text-4xl font-extrabold mb-6" style={{ color: `var(--color-${section.color})` }}>{section.title}</h2>
-          <p className="text-lg text-[var(--color-text-muted)] max-w-xl text-center">{section.desc}</p>
+          <h2
+            className="text-4xl font-extrabold mb-6"
+            style={{ color: `var(--color-${section.color})` }}
+          >
+            {section.title}
+          </h2>
+          <p className="text-lg text-[var(--color-text-muted)] max-w-xl text-center">
+            {section.desc}
+          </p>
         </div>
       </Element>
     ))}

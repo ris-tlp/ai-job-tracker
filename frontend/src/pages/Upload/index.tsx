@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { API_URL } from '../../config';
-import type { FileWithPath } from 'react-dropzone';
-import { AppNavbar } from '../../components/layout/AppNavbar';
-import { UploadPreview } from './components/UploadPreview';
-import { ParsedDataViewer } from './components/ParsedDataViewer';
+import React, { useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import { API_URL } from "../../config";
+import type { FileWithPath } from "react-dropzone";
+import { AppNavbar } from "../../components/layout/AppNavbar";
+import { UploadPreview } from "./components/UploadPreview";
+import { ParsedDataViewer } from "./components/ParsedDataViewer";
 
 const UploadPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -15,7 +15,7 @@ const UploadPage: React.FC = () => {
     const items = event.clipboardData.items;
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
-      if (item.type.match('image/(jpeg|jpg|png)')) {
+      if (item.type.match("image/(jpeg|jpg|png)")) {
         const file = item.getAsFile();
         if (file) {
           setSelectedImage(file);
@@ -29,7 +29,7 @@ const UploadPage: React.FC = () => {
   const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
-      if (file.type.match('image/(jpeg|jpg|png)')) {
+      if (file.type.match("image/(jpeg|jpg|png)")) {
         setSelectedImage(file);
         setParsedData(null);
       }
@@ -39,10 +39,10 @@ const UploadPage: React.FC = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'image/jpeg': ['.jpeg', '.jpg'],
-      'image/png': ['.png']
+      "image/jpeg": [".jpeg", ".jpg"],
+      "image/png": [".png"],
     },
-    maxFiles: 1
+    maxFiles: 1,
   });
 
   const handleUpload = async () => {
@@ -50,26 +50,26 @@ const UploadPage: React.FC = () => {
 
     setLoading(true);
     const formData = new FormData();
-    formData.append('file', selectedImage, selectedImage.name);
+    formData.append("file", selectedImage, selectedImage.name);
 
     try {
       const res = await fetch(`${API_URL}/jobs/parsed-images`, {
-        method: 'POST',
+        method: "POST",
         body: formData,
         headers: {
-          'Accept': 'application/json',
+          Accept: "application/json",
         },
       });
 
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.detail || 'Failed to process image');
+        throw new Error(errorData.detail || "Failed to process image");
       }
 
       const data = await res.json();
       setParsedData(JSON.stringify(data, null, 2));
     } catch (err) {
-      console.error('Upload error:', err);
+      console.error("Upload error:", err);
       setParsedData(`Error parsing image: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setLoading(false);
@@ -90,12 +90,12 @@ const UploadPage: React.FC = () => {
           alt="Background"
           className="w-full h-full object-cover opacity-70"
           style={{
-            position: 'fixed',
+            position: "fixed",
             top: 0,
             left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover'
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
           }}
         />
       </div>
@@ -104,19 +104,25 @@ const UploadPage: React.FC = () => {
           <div
             className={`w-full bg-white rounded-2xl shadow p-8 flex flex-col items-center gap-6 transition-all duration-500 ease-in-out`}
           >
-            <h1 className="text-3xl font-bold mb-2 text-[var(--color-primary)]">Upload, Drag, or Paste an Image</h1>
+            <h1 className="text-3xl font-bold mb-2 text-[var(--color-primary)]">
+              Upload, Drag, or Paste an Image
+            </h1>
             <div
               {...getRootProps({
                 className:
-                  "w-full flex flex-col items-center justify-center border-2 border-dashed border-[var(--color-primary)] rounded-xl py-10 px-4 cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors text-center"
+                  "w-full flex flex-col items-center justify-center border-2 border-dashed border-[var(--color-primary)] rounded-xl py-10 px-4 cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors text-center",
               })}
             >
               <input {...getInputProps()} />
               {isDragActive ? (
-                <p className="text-lg text-[var(--color-primary)] font-semibold">Drop the image here...</p>
+                <p className="text-lg text-[var(--color-primary)] font-semibold">
+                  Drop the image here...
+                </p>
               ) : (
                 <>
-                  <p className="text-lg text-gray-700">Drag & drop, click to select, or paste an image</p>
+                  <p className="text-lg text-gray-700">
+                    Drag & drop, click to select, or paste an image
+                  </p>
                   <p className="text-sm text-gray-500 mt-2">PNG, JPG, or JPEG only</p>
                 </>
               )}
