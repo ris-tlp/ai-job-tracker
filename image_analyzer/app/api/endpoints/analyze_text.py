@@ -1,0 +1,28 @@
+import logging
+
+from fastapi import APIRouter, Depends, HTTPException, Request
+from openai import AsyncOpenAI
+
+from app.dependencies import get_openai_client
+from app.exceptions import JobAnalysisError
+from app.schemas import AnalyzedJob, TextPayload
+from app.services.image_analyzer import analyze_text_with_llm
+
+router = APIRouter()
+logger = logging.getLogger(__name__)
+
+
+@router.post("", response_model=AnalyzedJob)
+async def analyze_text(
+	payload: TextPayload,
+	request: Request,
+	client: AsyncOpenAI = Depends(get_openai_client),
+):
+	try:
+		return await analyze_text_with_llm(payload.text, client)
+	except JobAnalysisError as e:
+		logger.error(f"Job analysis error: {e}")
+		raise HTTPException(status_code=400, detail=str(e))
+	except Exception as e:
+		logger.exception("Unexpected server error")
+		raise HTTPException(status_code=500, detail="Internal server error.")
