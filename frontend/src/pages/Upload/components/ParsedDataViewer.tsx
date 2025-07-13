@@ -10,7 +10,12 @@ interface ParsedDataViewerProps {
   analyzeError: string | null;
 }
 
-export const ParsedDataViewer: React.FC<ParsedDataViewerProps> = ({ parsedData, analyzedData, isAnalyzing, analyzeError }) => {
+export const ParsedDataViewer: React.FC<ParsedDataViewerProps> = ({
+  parsedData,
+  analyzedData,
+  isAnalyzing,
+  analyzeError,
+}) => {
   if (!parsedData) return null;
 
   return (
@@ -31,9 +36,7 @@ export const ParsedDataViewer: React.FC<ParsedDataViewerProps> = ({ parsedData, 
       <h2 className="text-xl font-semibold text-left text-[var(--color-secondary)] w-full mb-1 mt-6">
         Analyzed Job
       </h2>
-      {isAnalyzing && (
-        <div className="text-blue-600">Analyzing job description...</div>
-      )}
+      {isAnalyzing && <div className="text-blue-600">Analyzing job description...</div>}
       {analyzeError && (
         <div className="text-red-600 mb-2">Error analyzing text. Please try again.</div>
       )}
@@ -41,5 +44,3 @@ export const ParsedDataViewer: React.FC<ParsedDataViewerProps> = ({ parsedData, 
     </div>
   );
 };
-
-

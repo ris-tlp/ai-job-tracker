@@ -17,7 +17,7 @@ export interface AnalyzeTextResponse {
 export const analyzeTextApi = createApi({
   reducerPath: "analyzeTextApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api/analyzer", 
+    baseUrl: "/api/analyzer",
     prepareHeaders: (headers) => headers,
   }),
   endpoints: (builder) => ({

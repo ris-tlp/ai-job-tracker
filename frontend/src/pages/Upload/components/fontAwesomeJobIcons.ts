@@ -1,4 +1,13 @@
-import { faBriefcase, faBuilding, faMapMarkerAlt, faPassport, faLaptopCode, faHandshake, faCalendarAlt, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBriefcase,
+  faBuilding,
+  faMapMarkerAlt,
+  faPassport,
+  faLaptopCode,
+  faHandshake,
+  faCalendarAlt,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const jobIcons = {
   jobTitle: faBriefcase,

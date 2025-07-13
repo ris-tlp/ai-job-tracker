@@ -13,17 +13,18 @@ const UploadPage: React.FC = () => {
   const [parsedData, setParsedData] = useState<ParseImageResponse | null>(null);
   const [analyzedData, setAnalyzedData] = useState<AnalyzeTextResponse | null>(null);
   const [parseImage, { isLoading: isParsing }] = useParseImageMutation();
-  const [analyzeText, { isLoading: isAnalyzing, error: rawAnalyzeError }] = useAnalyzeTextMutation();
+  const [analyzeText, { isLoading: isAnalyzing, error: rawAnalyzeError }] =
+    useAnalyzeTextMutation();
 
   // Convert analyzeError to string | null
   let analyzeError: string | null = null;
   if (rawAnalyzeError) {
-    if (typeof rawAnalyzeError === 'string') {
+    if (typeof rawAnalyzeError === "string") {
       analyzeError = rawAnalyzeError;
-    } else if ('message' in rawAnalyzeError && typeof rawAnalyzeError.message === 'string') {
+    } else if ("message" in rawAnalyzeError && typeof rawAnalyzeError.message === "string") {
       analyzeError = rawAnalyzeError.message;
     } else {
-      analyzeError = 'An error occurred while analyzing.';
+      analyzeError = "An error occurred while analyzing.";
     }
   }
 
@@ -137,11 +138,16 @@ const UploadPage: React.FC = () => {
             <>
               <UploadPreview
                 selectedImage={selectedImage}
-                loading={isParsing }
+                loading={isParsing}
                 onUpload={handleUpload}
                 onRemove={handleRemoveImage}
               />
-              <ParsedDataViewer parsedData={parsedData} analyzedData={analyzedData} isAnalyzing={isAnalyzing} analyzeError={analyzeError} />
+              <ParsedDataViewer
+                parsedData={parsedData}
+                analyzedData={analyzedData}
+                isAnalyzing={isAnalyzing}
+                analyzeError={analyzeError}
+              />
             </>
           )}
         </div>

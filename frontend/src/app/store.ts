@@ -7,7 +7,8 @@ export const store = configureStore({
     [parseImageApi.reducerPath]: parseImageApi.reducer,
     [analyzeTextApi.reducerPath]: analyzeTextApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(parseImageApi.middleware, analyzeTextApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(parseImageApi.middleware, analyzeTextApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
