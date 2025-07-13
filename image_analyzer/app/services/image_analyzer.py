@@ -1,11 +1,12 @@
 import asyncio
 import json
 import logging
-from typing import Any
 
 from openai import AsyncOpenAI, OpenAIError
 
 from app.exceptions import JobAnalysisError
+from app.models import AnalyzedImageDTO
+from app.repository import AnalyzedImageRepository
 from app.schemas import AnalyzedJob
 
 logger = logging.getLogger("image_analyzer")
@@ -32,8 +33,9 @@ def validate_input(text: str) -> None:
 	if not text.strip():
 		raise JobAnalysisError("Input text cannot be empty.")
 
-
-async def analyze_text_with_llm(text: str, client: AsyncOpenAI) -> AnalyzedJob:
+async def analyze_text_with_llm(
+	text: str, client: AsyncOpenAI, repo: AnalyzedImageRepository
+) -> AnalyzedJob:
 	validate_input(text)
 	user_prompt = f"""
     Analyze the following job description and extract the required fields in JSON:
@@ -59,7 +61,9 @@ async def analyze_text_with_llm(text: str, client: AsyncOpenAI) -> AnalyzedJob:
 			content = response.choices[0].message.content
 			try:
 				data = json.loads(content)
-				return AnalyzedJob(**data)
+				dto = AnalyzedImageDTO.from_dict(data)
+				db_obj = await repo.create_analyzed_image_from_dto(dto)
+				return AnalyzedJob.from_dto(db_obj)
 			except Exception as e:
 				logger.error(f"Failed to parse LLM response: {content}")
 				raise JobAnalysisError("Failed to parse LLM response.") from e

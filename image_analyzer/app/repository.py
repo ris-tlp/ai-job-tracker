@@ -10,12 +10,8 @@ class AnalyzedImageRepository:
 	def __init__(self, session: AsyncSession):
 		self.session = session
 
-	async def create_analyzed_image(
-		self, parsed_image_id: int, analyzed_text: str
-	) -> AnalyzedImageDTO:
-		analyzed_image = AnalyzedImage(
-			parsed_image_id=parsed_image_id, analyzed_text=analyzed_text
-		)
+	async def create_analyzed_image_from_dto(self, dto: AnalyzedImageDTO) -> AnalyzedImageDTO:
+		analyzed_image = dto.to_orm()
 		self.session.add(analyzed_image)
 		await self.session.commit()
 		await self.session.refresh(analyzed_image)
