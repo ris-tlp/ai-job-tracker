@@ -32,9 +32,3 @@ class AnalyzedImageRepository:
 			AnalyzedImageDTO.model_validate(analyzed_image) if analyzed_image else None
 		)
 
-
-# Dependency for FastAPI endpoints
-async def get_analyzed_image_repository(
-	session: AsyncSession = Depends(get_session),
-) -> AnalyzedImageRepository:
-	return AnalyzedImageRepository(session)

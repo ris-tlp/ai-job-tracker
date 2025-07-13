@@ -23,6 +23,8 @@ class Settings(BaseSettings):
 	POSTGRES_PORT: str = Field(..., description="PostgreSQL server port")
 	POSTGRES_DB: str = Field(..., description="PostgreSQL database name")
 
+	OPENAI_API_KEY: str = Field(..., description="OpenAI API key")
+
 	@property
 	def database_url(self) -> str:
 		return (
