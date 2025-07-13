@@ -35,6 +35,7 @@ export const UploadPreview: React.FC<UploadPreviewProps> = ({
         <h2 className="text-2xl font-semibold text-center text-[var(--color-primary)] mb-6 w-full">
           Image Preview
         </h2>
+        <hr className="w-24 border-t-2 border-gray-200 mx-auto mb-4" />
         <div className="w-full flex justify-center bg-gray-50 rounded-lg p-4 relative">
           <div
             className="relative group cursor-pointer overflow-hidden rounded-lg"
@@ -76,7 +77,6 @@ export const UploadPreview: React.FC<UploadPreviewProps> = ({
         </div>
       </div>
 
-      {/* Full Screen Modal */}
       {isModalOpen && (
         <div
           className="fixed inset-0 bg-black/30 backdrop-blur-md z-50 flex items-center justify-center p-4"
@@ -89,7 +89,7 @@ export const UploadPreview: React.FC<UploadPreviewProps> = ({
           >
             <FontAwesomeIcon icon={faTimes} />
           </button>
-          <div className="max-w-5xl w-full max-h-[90vh] flex items-center justify-center p  -4">
+          <div className="max-w-5xl w-full max-h-[90vh] flex items-center justify-center p -4">
             <div className="relative bg-white/90 backdrop-blur-lg rounded-xl shadow-2xl overflow-hidden">
               <img
                 src={URL.createObjectURL(selectedImage)}

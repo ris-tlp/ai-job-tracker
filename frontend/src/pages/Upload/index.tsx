@@ -110,6 +110,7 @@ const UploadPage: React.FC = () => {
             <h1 className="text-3xl font-bold mb-2 text-[var(--color-primary)]">
               Upload, Drag, or Paste an Image
             </h1>
+            <hr className="w-24 border-t-2 border-gray-200 mx-auto mb-4" />
             <div
               {...getRootProps({
                 className:
@@ -136,7 +137,7 @@ const UploadPage: React.FC = () => {
             <>
               <UploadPreview
                 selectedImage={selectedImage}
-                loading={isParsing}
+                loading={isParsing }
                 onUpload={handleUpload}
                 onRemove={handleRemoveImage}
               />

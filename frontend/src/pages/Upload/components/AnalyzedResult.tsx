@@ -6,7 +6,7 @@ interface AnalyzedResultProps {
 }
 
 const AnalyzedResult: React.FC<AnalyzedResultProps> = ({ data }) => (
-  <div className="w-full mt-6 p-6 rounded-xl bg-gray-50 border border-gray-200">
+  <div className="w-full p-6 rounded-xl bg-gray-50 border border-gray-200">
     <h3 className="text-xl font-bold mb-2">Analysis Result</h3>
     <div className="space-y-1">
       <div>
