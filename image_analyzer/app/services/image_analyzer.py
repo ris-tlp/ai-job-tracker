@@ -33,6 +33,7 @@ def validate_input(text: str) -> None:
 	if not text.strip():
 		raise JobAnalysisError("Input text cannot be empty.")
 
+
 async def analyze_text_with_llm(
 	text: str, client: AsyncOpenAI, repo: AnalyzedImageRepository
 ) -> AnalyzedJob:

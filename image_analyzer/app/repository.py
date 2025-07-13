@@ -10,7 +10,9 @@ class AnalyzedImageRepository:
 	def __init__(self, session: AsyncSession):
 		self.session = session
 
-	async def create_analyzed_image_from_dto(self, dto: AnalyzedImageDTO) -> AnalyzedImageDTO:
+	async def create_analyzed_image_from_dto(
+		self, dto: AnalyzedImageDTO
+	) -> AnalyzedImageDTO:
 		analyzed_image = dto.to_orm()
 		self.session.add(analyzed_image)
 		await self.session.commit()
