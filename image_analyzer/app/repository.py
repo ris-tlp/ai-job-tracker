@@ -31,4 +31,3 @@ class AnalyzedImageRepository:
 		return (
 			AnalyzedImageDTO.model_validate(analyzed_image) if analyzed_image else None
 		)
-
