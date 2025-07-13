@@ -71,7 +71,7 @@ export const UploadPreview: React.FC<UploadPreviewProps> = ({
                 : "bg-[var(--color-accent)] hover:bg-[var(--color-secondary)]"
             } transition-colors`}
           >
-            {loading ? "Processing..." : "Upload Image"}
+            {loading ? "Processing..." : "Upload and Analyze Job"}
           </button>
         </div>
       </div>

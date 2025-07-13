@@ -1,7 +1,9 @@
 import { useState, useCallback } from "react";
 import type { ParseImageResponse } from "@/services/parseImageApi";
+import type { AnalyzeTextResponse } from "@/services/analyzeTextApi";
 import { useDropzone, type FileWithPath } from "react-dropzone";
 import { useParseImageMutation } from "../../services/parseImageApi";
+import { useAnalyzeTextMutation } from "../../services/analyzeTextApi";
 import { AppNavbar } from "../../components/layout/AppNavbar";
 import { UploadPreview } from "./components/UploadPreview";
 import { ParsedDataViewer } from "./components/ParsedDataViewer";
@@ -9,7 +11,21 @@ import { ParsedDataViewer } from "./components/ParsedDataViewer";
 const UploadPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [parsedData, setParsedData] = useState<ParseImageResponse | null>(null);
-  const [parseImage, { isLoading }] = useParseImageMutation();
+  const [analyzedData, setAnalyzedData] = useState<AnalyzeTextResponse | null>(null);
+  const [parseImage, { isLoading: isParsing }] = useParseImageMutation();
+  const [analyzeText, { isLoading: isAnalyzing, error: rawAnalyzeError }] = useAnalyzeTextMutation();
+
+  // Convert analyzeError to string | null
+  let analyzeError: string | null = null;
+  if (rawAnalyzeError) {
+    if (typeof rawAnalyzeError === 'string') {
+      analyzeError = rawAnalyzeError;
+    } else if ('message' in rawAnalyzeError && typeof rawAnalyzeError.message === 'string') {
+      analyzeError = rawAnalyzeError.message;
+    } else {
+      analyzeError = 'An error occurred while analyzing.';
+    }
+  }
 
   const handlePaste = (event: React.ClipboardEvent) => {
     const items = event.clipboardData.items;
@@ -47,13 +63,19 @@ const UploadPage: React.FC = () => {
 
   const handleUpload = async () => {
     if (!selectedImage) return;
-
+    setParsedData(null);
+    setAnalyzedData(null);
     try {
-      const result = await parseImage(selectedImage).unwrap();
-      setParsedData(result);
+      const parsed = await parseImage(selectedImage).unwrap();
+      setParsedData(parsed);
+      if (parsed && parsed.parsed_text) {
+        const analyzed = await analyzeText({ text: parsed.parsed_text }).unwrap();
+        setAnalyzedData(analyzed);
+      }
     } catch (err) {
-      console.error("Upload error:", err);
+      console.error("Upload or analyze error:", err);
       setParsedData(null);
+      setAnalyzedData(null);
     }
   };
 
@@ -114,11 +136,11 @@ const UploadPage: React.FC = () => {
             <>
               <UploadPreview
                 selectedImage={selectedImage}
-                loading={isLoading}
+                loading={isParsing}
                 onUpload={handleUpload}
                 onRemove={handleRemoveImage}
               />
-              <ParsedDataViewer parsedData={parsedData} />
+              <ParsedDataViewer parsedData={parsedData} analyzedData={analyzedData} isAnalyzing={isAnalyzing} analyzeError={analyzeError} />
             </>
           )}
         </div>
