@@ -1,0 +1,2 @@
+class JobAnalysisError(Exception):
+    pass
