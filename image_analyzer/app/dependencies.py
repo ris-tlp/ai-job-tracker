@@ -14,6 +14,7 @@ async def get_analyzed_image_repository(
 ) -> AnalyzedImageRepository:
 	return AnalyzedImageRepository(session)
 
+
 async def get_openai_client() -> Generator[AsyncOpenAI, None, None]:
 	"""
 	Dependency that provides an async OpenAI client.
