@@ -26,6 +26,11 @@ export default defineConfig(({ mode }) => {
           target: env.VITE_API_URL_IMAGE_ANALYZER,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api\/analyzer/, env.VITE_API_VERSION)
+        },
+        '/api/jobs': {
+          target: env.VITE_API_URL_JOB_TRACKER,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/jobs/, env.VITE_API_VERSION)
         }
       }
     },
