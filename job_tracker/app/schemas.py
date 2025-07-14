@@ -3,10 +3,10 @@ from typing import Optional
 
 from pydantic import BaseModel
 
-from .models import VisaSponsorshipStatus
+from .enums import VisaSponsorshipStatus
 
 
-class JobResponse(BaseModel):
+class JobResponseSchema(BaseModel):
     id: Optional[int]
     job_title: str
     company_name: Optional[str] = None
@@ -20,3 +20,12 @@ class JobResponse(BaseModel):
 
     class Config:
         orm_mode = True
+
+class JobRequestSchema(BaseModel):
+    job_title: str
+    company_name: Optional[str] = None
+    location: Optional[str] = None
+    visa_sponsorship: VisaSponsorshipStatus
+    tech_stack: Optional[str] = None
+    soft_skills: Optional[str] = None
+    years_experience: Optional[str] = None

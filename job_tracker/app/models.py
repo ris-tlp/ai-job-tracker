@@ -5,18 +5,14 @@ from typing import Optional
 from sqlalchemy import func
 from sqlmodel import Field, SQLModel
 
-from .schemas import JobResponse
+from .enums import VisaSponsorshipStatus
+from .schemas import JobRequestSchema, JobResponseSchema
 
-
-class VisaSponsorshipStatus(str, Enum):
-    AVAILABLE = "available"
-    NOT_AVAILABLE = "not_available"
-    UNAVAILABLE = "unavailable"
 
 class Job(SQLModel, table=True):
     __tablename__ = "jobs"
 
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int = Field(default=None, primary_key=True)
     job_title: str
     company_name: Optional[str] = None
     location: Optional[str] = None
@@ -38,7 +34,7 @@ class Job(SQLModel, table=True):
     )
 
 class JobDTO(SQLModel):
-    id: Optional[int]
+    id: Optional[int] = None
     job_title: str
     company_name: Optional[str] = None
     location: Optional[str] = None
@@ -49,8 +45,20 @@ class JobDTO(SQLModel):
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
-    def to_response(self) -> JobResponse:
-        return JobResponse(
+    @classmethod
+    def from_request(cls, job_request: "JobRequestSchema") -> "JobDTO":
+        return JobDTO(
+            job_title=job_request.job_title,
+            company_name=job_request.company_name,
+            location=job_request.location,
+            visa_sponsorship=job_request.visa_sponsorship,
+            tech_stack=job_request.tech_stack,
+            soft_skills=job_request.soft_skills,
+            years_experience=job_request.years_experience,
+        )
+
+    def to_response(self) -> JobResponseSchema:
+        return JobResponseSchema(
             id=self.id,
             job_title=self.job_title,
             company_name=self.company_name,
@@ -65,7 +73,7 @@ class JobDTO(SQLModel):
 
     def to_orm(self) -> "Job":
         return Job(
-            id=self.id,
+            id=None,  # DB generates key
             job_title=self.job_title,
             company_name=self.company_name,
             location=self.location,
