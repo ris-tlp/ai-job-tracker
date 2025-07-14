@@ -2,11 +2,11 @@ from fastapi import Depends
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.database import get_session
-from app.repository import AnalyzedImageRepository
+from app.repository import JobRepository
 
 
-async def get_analyzed_image_repository(
+async def get_job_repository(
 	session: AsyncSession = Depends(get_session),
-) -> AnalyzedImageRepository:
-	return AnalyzedImageRepository(session)
+) -> JobRepository:
+	return JobRepository(session)
 
