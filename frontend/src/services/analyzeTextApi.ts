@@ -5,12 +5,13 @@ export interface AnalyzeTextRequest {
 }
 
 export interface AnalyzeTextResponse {
+  id: number;
   job_title: string;
   company_name?: string;
   location?: string;
   visa_sponsorship?: boolean;
-  tech_stack: string[];
-  soft_skills: string[];
+  tech_stack: string;
+  soft_skills: string;
   years_experience?: string;
 }
 

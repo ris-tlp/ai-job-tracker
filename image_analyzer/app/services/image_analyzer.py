@@ -9,7 +9,6 @@ from langchain_openai import ChatOpenAI
 from app.exceptions import JobAnalysisError
 from app.models import AnalyzedImageDTO
 from app.repository import AnalyzedImageRepository
-from app.schemas import AnalyzedJob
 
 logger = logging.getLogger("image_analyzer")
 
@@ -60,7 +59,7 @@ def validate_input(text: str) -> None:
 
 async def analyze_text_with_llm(
     text: str, client: ChatOpenAI, repo: AnalyzedImageRepository
-) -> AnalyzedJob:
+) -> AnalyzedImageDTO:
     validate_input(text)
     prompt = ChatPromptTemplate.from_messages([
         ("system", SYSTEM_PROMPT),
@@ -75,5 +74,6 @@ async def analyze_text_with_llm(
         raise JobAnalysisError("Failed to parse LLM response.") from e
 
     dto = AnalyzedImageDTO.from_dict(data)
-    await repo.create_analyzed_image_from_dto(dto)
-    return AnalyzedJob.from_dto(dto)
+    dto = await repo.create_analyzed_image_from_dto(dto)
+    print(dto)
+    return dto

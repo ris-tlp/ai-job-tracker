@@ -8,6 +8,7 @@ interface AnalyzedResultProps {
 }
 
 const AnalyzedResult: React.FC<AnalyzedResultProps> = ({ data }) => (
+
   <div className="w-full p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white border border-gray-200 shadow-md">
     <div className="flex flex-col gap-4">
       <div className="flex items-center">
@@ -80,7 +81,7 @@ const AnalyzedResult: React.FC<AnalyzedResultProps> = ({ data }) => (
           />
           <span className="font-semibold mr-2">Tech Stack:</span>
           <div className="flex flex-wrap gap-1">
-            {data.tech_stack.map((tech, idx) => (
+            {data.tech_stack.split(",").map((tech, idx) => (
               <span
                 key={tech + idx}
                 className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-medium mr-1 mb-1"
@@ -99,7 +100,7 @@ const AnalyzedResult: React.FC<AnalyzedResultProps> = ({ data }) => (
           />
           <span className="font-semibold mr-2">Soft Skills:</span>
           <div className="flex flex-wrap gap-1">
-            {data.soft_skills.map((skill, idx) => (
+            {data.soft_skills.split(",").map((skill, idx) => (
               <span
                 key={skill + idx}
                 className="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-xs font-medium mr-1 mb-1"
