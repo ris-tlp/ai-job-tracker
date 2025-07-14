@@ -46,9 +46,19 @@ const AnalyzedResult: React.FC<AnalyzedResultProps> = ({ data }) => (
           />
           <span className="font-semibold">Visa Sponsorship:</span>
           <span
-            className={`ml-2 px-2 py-0.5 rounded text-xs font-medium ${data.visa_sponsorship ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
+            className={`ml-2 px-2 py-0.5 rounded text-xs font-medium ${
+              data.visa_sponsorship === true
+                ? "bg-green-100 text-green-700"
+                : data.visa_sponsorship === false
+                  ? "bg-red-100 text-red-700"
+                  : "bg-gray-100 text-gray-700"
+            }`}
           >
-            {data.visa_sponsorship ? "Yes" : "No"}
+            {data.visa_sponsorship === true
+              ? "Yes"
+              : data.visa_sponsorship === false
+                ? "No"
+                : "Unavailable"}
           </span>
         </div>
       )}

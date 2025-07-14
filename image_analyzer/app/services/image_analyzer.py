@@ -16,7 +16,7 @@ SYSTEM_PROMPT = """
     - job_title (string)
     - company_name (string, optional)
     - location (string, optional)
-    - visa_sponsorship (bool, optional)
+    - visa_sponsorship (string, required): one of 'available', 'not_available', or 'unavailable'. Use 'available' if sponsorship is explicitly offered, 'not_available' if explicitly denied, and 'unavailable' if not mentioned or unclear.
     - tech_stack (list of strings)
     - soft_skills (list of strings)
     - years_experience (string, optional)
@@ -63,6 +63,7 @@ async def analyze_text_with_llm(
 			try:
 				data = json.loads(content)
 				dto = AnalyzedImageDTO.from_dict(data)
+				print(dto, "LMAO")
 				db_obj = await repo.create_analyzed_image_from_dto(dto)
 				return AnalyzedJob.from_dto(db_obj)
 			except Exception as e:

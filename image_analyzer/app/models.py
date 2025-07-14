@@ -1,8 +1,15 @@
 from datetime import datetime
+from enum import Enum
 from typing import Optional
 
 from sqlalchemy import func
 from sqlmodel import Field, SQLModel
+
+
+class VisaSponsorshipStatus(str, Enum):
+	AVAILABLE = "available"
+	NOT_AVAILABLE = "not_available"
+	UNAVAILABLE = "unavailable"
 
 
 class AnalyzedImage(SQLModel, table=True):
@@ -12,7 +19,9 @@ class AnalyzedImage(SQLModel, table=True):
 	job_title: str
 	company_name: Optional[str] = None
 	location: Optional[str] = None
-	visa_sponsorship: Optional[bool] = None
+	visa_sponsorship: VisaSponsorshipStatus = Field(
+		default=VisaSponsorshipStatus.UNAVAILABLE
+	)
 	tech_stack: Optional[str] = None
 	soft_skills: Optional[str] = None
 	years_experience: Optional[str] = None
@@ -33,12 +42,12 @@ class AnalyzedImageDTO(SQLModel):
 	job_title: str
 	company_name: Optional[str] = None
 	location: Optional[str] = None
-	visa_sponsorship: Optional[bool] = None
+	visa_sponsorship: VisaSponsorshipStatus = VisaSponsorshipStatus.UNAVAILABLE
 	tech_stack: Optional[str] = None
 	soft_skills: Optional[str] = None
 	years_experience: Optional[str] = None
-	created_at: datetime
-	updated_at: datetime
+	created_at: Optional[datetime] = None
+	updated_at: Optional[datetime] = None
 
 	@classmethod
 	def from_dict(cls, data: dict) -> "AnalyzedImageDTO":
@@ -48,17 +57,24 @@ class AnalyzedImageDTO(SQLModel):
 		soft_skills = data.get("soft_skills")
 		if isinstance(soft_skills, list):
 			soft_skills = ",".join(soft_skills)
+		visa = data.get("visa_sponsorship")
+		if visa == "available":
+			visa_enum = VisaSponsorshipStatus.AVAILABLE
+		elif visa == "not_available":
+			visa_enum = VisaSponsorshipStatus.NOT_AVAILABLE
+		else:
+			visa_enum = VisaSponsorshipStatus.UNAVAILABLE
 		return cls(
 			id=data.get("id", 0),
 			job_title=data.get("job_title"),
 			company_name=data.get("company_name"),
 			location=data.get("location"),
-			visa_sponsorship=data.get("visa_sponsorship"),
+			visa_sponsorship=visa_enum,
 			tech_stack=tech_stack,
 			soft_skills=soft_skills,
 			years_experience=data.get("years_experience"),
-			created_at=data.get("created_at", datetime.utcnow()),
-			updated_at=data.get("updated_at", datetime.utcnow()),
+			created_at=data.get("created_at", None),
+			updated_at=data.get("updated_at", None),
 		)
 
 	def to_orm(self) -> "AnalyzedImage":
