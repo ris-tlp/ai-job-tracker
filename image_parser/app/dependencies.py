@@ -1,7 +1,8 @@
 from fastapi import Depends
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from app.database import ParsedImageRepository, get_session
+from app.database import get_session
+from app.repository import ParsedImageRepository
 
 
 async def get_parsed_image_repository(

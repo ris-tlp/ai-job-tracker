@@ -3,14 +3,15 @@ import logging
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from fastapi.responses import JSONResponse
 
+from app.dependencies import get_parsed_image_repository
 from app.exceptions import (
 	ImageProcessingError,
 	OCRServiceError,
 	UnsupportedImageError,
 )
 from app.models import ParsedImageDTO
-from app.repository import ParsedImageRepository, get_parsed_image_repository
-from app.schemas import ErrorResponse
+from app.repository import ParsedImageRepository
+from app.schemas import ErrorResponse, ParsedImageResponse
 from app.services.ocr import OCRService
 
 logger = logging.getLogger(__name__)
@@ -43,14 +44,14 @@ def create_error_response(
 
 @router.post(
 	"",
-	response_model=ParsedImageDTO,
+	response_model=ParsedImageResponse,
 	status_code=status.HTTP_200_OK,
 	summary="Extract text from an image",
 	description="Extract text from an uploaded image using OCR.",
 	responses={
 		200: {
 			"description": "Text successfully extracted from image",
-			"model": ParsedImageDTO,
+			"model": ParsedImageResponse,
 		},
 		400: {
 			"description": "Invalid request or unsupported file format",
@@ -66,7 +67,7 @@ def create_error_response(
 async def extract_text(
 	file: UploadFile = File(..., description="Image file to process"),
 	repository: ParsedImageRepository = Depends(get_parsed_image_repository),
-) -> ParsedImageDTO:
+) -> ParsedImageResponse:
 	"""Extract text from an uploaded image.
 
 	Args:
@@ -119,7 +120,7 @@ async def extract_text(
 				repository=repository,
 			)
 			logger.info("Successfully extracted text from image and saved to DB")
-			return parsed_image_dto
+			return ParsedImageResponse.from_dto(parsed_image_dto)
 
 		except UnsupportedImageError as e:
 			logger.warning(f"Unsupported image: {e!s}")

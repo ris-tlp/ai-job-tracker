@@ -11,6 +11,7 @@ from app.exceptions import (
 	OCRServiceError,
 	UnsupportedImageError,
 )
+from app.models import ParsedImageDTO
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +21,7 @@ class OCRService:
 
 	def __init__(self, lang: str = "eng"):
 		"""
-		    Args:
+		Args:
 		lang: Language code for OCR
 		"""
 		self.lang = lang
@@ -30,16 +31,16 @@ class OCRService:
 	async def extract_text(self, image_data: bytes) -> str:
 		"""Extract text from image bytes.
 
-		    Args:
+		Args:
 		image_data: Raw image data as bytes
 
-		    Returns:
-		Extracted text as a string
+		Returns:
+			Extracted text as a string
 
-		    Raises:
-		UnsupportedImageError: If the image format is not supported
-		ImageProcessingError: If there's an error processing the image
-		OCRServiceError: If there's an error during OCR processing
+		Raises:
+			UnsupportedImageError: If the image format is not supported
+			ImageProcessingError: If there's an error processing the image
+			OCRServiceError: If there's an error during OCR processing
 		"""
 		self.logger.debug("Starting text extraction from image bytes")
 		try:
@@ -95,17 +96,21 @@ class OCRService:
 		repository,
 	) -> "ParsedImageDTO":
 		"""
-		    Extract text from image and save the result to the database using the repository.
+		Extract text from image and save the result to the database using the repository.
 
-		    Args:
-		image_data: Raw image data as bytes
-		image_name: The filename of the uploaded image
-		repository: The repository instance for DB operations
+		Args:
+			image_data: Raw image data as bytes
+			image_name: The filename of the uploaded image
+			repository: The repository instance for DB operations
 
-		    Returns:
-		ParsedImageDTO: The saved parsed image DTO
+		Returns:
+			ParsedImageDTO: The saved parsed image DTO
 		"""
 		text = await self.extract_text(image_data)
-		return await repository.create_parsed_image(
-			image_name=image_name, parsed_text=text
+		dto = ParsedImageDTO.from_dict(
+			{
+				"image_name": image_name,
+				"parsed_text": text,
+			}
 		)
+		return await repository.create_parsed_image(dto)

@@ -3,7 +3,7 @@ from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.database import get_session
-from app.models import ParsedImage, ParsedImageDTO
+from app.models import ParsedImageDTO
 
 
 class ParsedImageRepository:
@@ -11,11 +11,12 @@ class ParsedImageRepository:
 		self.session = session
 
 	async def create_parsed_image(
-		self, image_name: str, parsed_text: str
+		self, dto: ParsedImageDTO
 	) -> ParsedImageDTO:
-		parsed_image = ParsedImage(image_name=image_name, parsed_text=parsed_text)
+		parsed_image = dto.to_orm()
 		self.session.add(parsed_image)
 		await self.session.commit()
 		await self.session.refresh(parsed_image)
-		return ParsedImageDTO.from_orm(parsed_image)
+		return parsed_image.to_dto()
+
 

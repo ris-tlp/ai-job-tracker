@@ -18,12 +18,12 @@ class TextResponse(BaseModel):
 	)
 
 
-class ParsedImage(BaseModel):
+class ParsedImageResponse(BaseModel):
 	image_name: str
 	parsed_text: str
 
 	@classmethod
-	def from_dto(cls, dto) -> "ParsedImage":
+	def from_dto(cls, dto) -> "ParsedImageResponse":
 		return cls(
 			image_name=dto.image_name,
 			parsed_text=dto.parsed_text,
