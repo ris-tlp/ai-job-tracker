@@ -29,6 +29,20 @@ services:
     networks:
       - backend
 
+  db_job_tracker:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    env_file:
+      - ./job_tracker/.env.db
+    ports:
+      - "5435:5432"
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - pgdata_job_tracker:/var/lib/postgresql/data
+    networks:
+      - backend
+
 networks:
   backend:
     driver: bridge
@@ -36,4 +50,5 @@ networks:
 volumes:
   pgdata_parser:
   pgdata_analyzer:
+  pgdata_job_tracker:
   pgdata:
