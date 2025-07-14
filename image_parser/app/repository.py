@@ -19,9 +19,3 @@ class ParsedImageRepository:
 		await self.session.refresh(parsed_image)
 		return ParsedImageDTO.from_orm(parsed_image)
 
-
-# Dependency for FastAPI endpoints
-async def get_parsed_image_repository(
-	session: AsyncSession = Depends(get_session),
-) -> ParsedImageRepository:
-	return ParsedImageRepository(session)

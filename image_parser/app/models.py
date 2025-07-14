@@ -29,5 +29,21 @@ class ParsedImageDTO(SQLModel):
 	created_at: datetime
 	updated_at: datetime
 
+	@classmethod
+	def from_dict(cls, data: dict) -> "ParsedImageDTO":
+		return cls(
+			id=data.get("id", 0),
+			image_name=data.get("image_name"),
+			parsed_text=data.get("parsed_text"),
+			created_at=data.get("created_at", datetime.utcnow()),
+			updated_at=data.get("updated_at", datetime.utcnow()),
+		)
+
+	def to_orm(self) -> "ParsedImage":
+		return ParsedImage(
+			image_name=self.image_name,
+			parsed_text=self.parsed_text,
+		)
+
 	class Config:
 		orm_mode = True

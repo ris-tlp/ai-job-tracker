@@ -16,3 +16,15 @@ class TextResponse(BaseModel):
 		...,
 		description="Metadata about the processed image, such as filename and content_type.",
 	)
+
+
+class ParsedImage(BaseModel):
+	image_name: str
+	parsed_text: str
+
+	@classmethod
+	def from_dto(cls, dto) -> "ParsedImage":
+		return cls(
+			image_name=dto.image_name,
+			parsed_text=dto.parsed_text,
+		)
