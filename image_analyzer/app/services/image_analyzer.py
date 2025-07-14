@@ -2,7 +2,9 @@ import asyncio
 import json
 import logging
 
-from openai import AsyncOpenAI, OpenAIError
+from langchain.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import JsonOutputParser
+from langchain_openai import ChatOpenAI
 
 from app.exceptions import JobAnalysisError
 from app.models import AnalyzedImageDTO
@@ -12,16 +14,38 @@ from app.schemas import AnalyzedJob
 logger = logging.getLogger("image_analyzer")
 
 SYSTEM_PROMPT = """
-    You are an expert job description analyzer. Given a block of text, extract the following information as JSON:
-    - job_title (string)
-    - company_name (string, optional)
-    - location (string, optional)
-    - visa_sponsorship (string, required): one of 'available', 'not_available', or 'unavailable'. Use 'available' if sponsorship is explicitly offered, 'not_available' if explicitly denied, and 'unavailable' if not mentioned or unclear.
-    - tech_stack (list of strings)
-    - soft_skills (list of strings)
-    - years_experience (string, optional)
-    If a field is not present, return null or an empty list as appropriate.
-    """
+You are an expert job description analyzer. Given a block of text, extract the following information as JSON:
+- job_title (string)
+- company_name (string, optional)
+- location (string, optional)
+- visa_sponsorship (string, required): one of 'available', 'not_available', or 'unavailable'.
+- tech_stack (list of strings)
+- soft_skills (list of strings)
+- years_experience (string, optional)
+If a field is not present, return null or an empty list as appropriate.
+
+For the visa_sponsorship variable specifically, analyze the language of the job post and apply the following rules with decisions:
+
+- If the job post **explicitly states that visa sponsorship is offered**, or says phrases like:
+    - “visa sponsorship available”
+    - “we sponsor H-1B”
+    - “willing to sponsor”
+    - “sponsorship can be provided”
+  → Then set `visa_sponsorship = "available"`
+
+- If the job post **explicitly states that visa sponsorship is not offered** or anything along the lines of it, or includes disqualifying criteria such as:
+    - “we do not sponsor visas”
+    - “no sponsorship available”
+    - “must not require sponsorship”
+    - “must be authorized to work in the U.S. without sponsorship”
+    - “must work without sponsorship assistance from company”
+    - “must be legally allowed to work in job location without sponsorship”
+    - “a student who requires sponsorship (now or in the future) is not eligible”
+    - disqualifies candidates on F1, OPT, CPT, STEM-OPT, EAD, or H1-B visas or immigration status
+    - mentions **security clearance**, **U.S. citizenship**, **green card only**, **polygraph**, or **background investigation**
+  → Then set `visa_sponsorship = "not_available"`
+"""
+
 
 OPENAI_TIMEOUT = 20
 OPENAI_MAX_RETRIES = 2
@@ -35,47 +59,21 @@ def validate_input(text: str) -> None:
 
 
 async def analyze_text_with_llm(
-	text: str, client: AsyncOpenAI, repo: AnalyzedImageRepository
+    text: str, client: ChatOpenAI, repo: AnalyzedImageRepository
 ) -> AnalyzedJob:
-	validate_input(text)
-	user_prompt = f"""
-    Analyze the following job description and extract the required fields in JSON:
-    ---
-    {text}
-    """
+    validate_input(text)
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", SYSTEM_PROMPT),
+        ("user", "Analyze the following job description and extract the required fields in JSON:\n---\n{text}")
+    ])
+    parser = JsonOutputParser()
+    chain = prompt | client | parser
+    try:
+        data = await chain.ainvoke({"text": text})
+    except Exception as e:
+        logger.error(f"Failed to parse LLM response: {e}")
+        raise JobAnalysisError("Failed to parse LLM response.") from e
 
-	last_exception = None
-	for attempt in range(OPENAI_MAX_RETRIES + 1):
-		try:
-			response = await asyncio.wait_for(
-				client.chat.completions.create(
-					model="gpt-3.5-turbo",
-					messages=[
-						{"role": "system", "content": SYSTEM_PROMPT},
-						{"role": "user", "content": user_prompt},
-					],
-					response_format={"type": "json_object"},
-					max_tokens=512,
-				),
-				timeout=OPENAI_TIMEOUT,
-			)
-			content = response.choices[0].message.content
-			try:
-				data = json.loads(content)
-				dto = AnalyzedImageDTO.from_dict(data)
-				print(dto, "LMAO")
-				db_obj = await repo.create_analyzed_image_from_dto(dto)
-				return AnalyzedJob.from_dto(db_obj)
-			except Exception as e:
-				logger.error(f"Failed to parse LLM response: {content}")
-				raise JobAnalysisError("Failed to parse LLM response.") from e
-		except (asyncio.TimeoutError, OpenAIError) as e:
-			logger.warning(f"OpenAI API call failed (attempt {attempt + 1}): {e}")
-			last_exception = e
-			await asyncio.sleep(1)
-		except Exception as e:
-			logger.exception("Unexpected error in analyze_text_with_llm")
-			raise JobAnalysisError("Unexpected error during analysis.") from e
-	raise JobAnalysisError(
-		f"OpenAI API call failed after {OPENAI_MAX_RETRIES + 1} attempts: {last_exception}"
-	)
+    dto = AnalyzedImageDTO.from_dict(data)
+    await repo.create_analyzed_image_from_dto(dto)
+    return AnalyzedJob.from_dto(dto)

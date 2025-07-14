@@ -1,7 +1,7 @@
 from typing import Generator
 
 from fastapi import Depends
-from openai import AsyncOpenAI
+from langchain_openai import ChatOpenAI
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.core.config import settings
@@ -15,16 +15,8 @@ async def get_analyzed_image_repository(
 	return AnalyzedImageRepository(session)
 
 
-async def get_openai_client() -> Generator[AsyncOpenAI, None, None]:
+def get_langchain_openai_client() -> ChatOpenAI:
 	"""
-	Dependency that provides an async OpenAI client.
-	The client is properly closed after the request is finished.
-
-	Yields:
-	AsyncOpenAI: An async OpenAI client instance
+	Dependency that provides a LangChain ChatOpenAI client.
 	"""
-	client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
-	try:
-		yield client
-	finally:
-		await client.close()
+	return ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY, temperature=0)

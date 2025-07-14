@@ -1,9 +1,9 @@
 import logging
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from openai import AsyncOpenAI
+from langchain_openai import ChatOpenAI
 
-from app.dependencies import get_analyzed_image_repository, get_openai_client
+from app.dependencies import get_analyzed_image_repository, get_langchain_openai_client
 from app.exceptions import JobAnalysisError
 from app.repository import AnalyzedImageRepository
 from app.schemas import AnalyzedJob, TextPayload
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 async def analyze_text(
 	payload: TextPayload,
 	request: Request,
-	client: AsyncOpenAI = Depends(get_openai_client),
+	client: ChatOpenAI = Depends(get_langchain_openai_client),
 	repo: AnalyzedImageRepository = Depends(get_analyzed_image_repository),
 ):
 	try:
