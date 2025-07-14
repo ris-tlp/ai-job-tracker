@@ -1,7 +1,7 @@
 from datetime import datetime
-from typing import Optional
+from typing import Any, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from .enums import VisaSponsorshipStatus
 
@@ -29,3 +29,10 @@ class JobRequestSchema(BaseModel):
     tech_stack: Optional[str] = None
     soft_skills: Optional[str] = None
     years_experience: Optional[str] = None
+
+
+class ErrorResponse(BaseModel):
+	detail: Any = Field(..., description="Error details, can be a string or dict.")
+	type: Optional[str] = Field(
+		None, description="Type of error for client-side handling."
+	)
