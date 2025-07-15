@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { useCreateJobMutation, VisaSponsorshipStatus, type ApiError } from "@/services/jobApi";
+import { useCreateJobMutation, VisaSponsorshipStatus, type ApiError, type CreateJobRequest } from "@/services/jobApi";
 import type { AnalyzeTextResponse } from "@/services/analyzeTextApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { jobIcons } from "./fontAwesomeJobIcons";
@@ -19,14 +19,14 @@ const AnalyzedResult: React.FC<AnalyzedResultProps> = ({ data }) => {
         return;
       }
 
-      const jobData = {
+      const jobData: CreateJobRequest = {
         job_title: data.job_title,
-        company_name: data.company_name || '',
-        location: data.location || '',
+        company_name: data.company_name,
+        location: data.location,
         visa_sponsorship: data.visa_sponsorship || VisaSponsorshipStatus.UNAVAILABLE,
         tech_stack: data.tech_stack || '',
         soft_skills: data.soft_skills || '',
-        years_experience: data.years_experience || '',
+        years_experience: data.years_experience,
       };
 
       await createJob(jobData).unwrap();

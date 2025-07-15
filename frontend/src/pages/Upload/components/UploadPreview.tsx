@@ -5,7 +5,7 @@ import { faTimes, faExpand } from "@fortawesome/free-solid-svg-icons";
 interface UploadPreviewProps {
   selectedImage: File | null;
   loading: boolean;
-  onUpload: () => void;
+  onUpload: () => Promise<void> | void;
   onRemove: () => void;
 }
 
@@ -19,14 +19,20 @@ export const UploadPreview: React.FC<UploadPreviewProps> = ({
 
   if (!selectedImage) return null;
 
-  const openModal = (e: React.MouseEvent) => {
+  const openModal = (e: React.MouseEvent<HTMLDivElement>): void => {
     e.stopPropagation();
     setIsModalOpen(true);
   };
 
-  const closeModal = (e: React.MouseEvent) => {
+
+  const handleRemoveClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.stopPropagation();
-    setIsModalOpen(false);
+    onRemove();
+  };
+  
+  const handleUploadClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.stopPropagation();
+    onUpload();
   };
 
   return (
@@ -56,21 +62,23 @@ export const UploadPreview: React.FC<UploadPreviewProps> = ({
         <div className="flex justify-center gap-4 mt-8 w-full">
           <button
             type="button"
-            onClick={onRemove}
+            onClick={handleRemoveClick}
             className="px-6 py-2 border-2 border-white text-red-500 rounded-full font-medium hover:bg-red-500 hover:text-white transition-colors disabled:opacity-50 "
             disabled={loading}
+            aria-label="Remove image"
           >
             Remove
           </button>
           <button
             type="button"
-            onClick={onUpload}
+            onClick={handleUploadClick}
             disabled={loading}
             className={`px-6 py-2 rounded-full font-medium text-white shadow ${
               loading
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-[var(--color-accent)] hover:bg-[var(--color-secondary)]"
             } transition-colors`}
+            aria-label="Upload and analyze job"
           >
             {loading ? "Processing..." : "Upload and Analyze Job"}
           </button>
@@ -80,11 +88,17 @@ export const UploadPreview: React.FC<UploadPreviewProps> = ({
       {isModalOpen && (
         <div
           className="fixed inset-0 bg-black/30 backdrop-blur-md z-50 flex items-center justify-center p-4"
-          onClick={closeModal}
+          onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+            // Only close if the click is on the backdrop, not on the content
+            if (e.target === e.currentTarget) {
+              setIsModalOpen(false);
+            }
+          }}
         >
           <button
-            className="absolute top-6 right-6 bg-white/90 hover:bg-white text-gray-800 w-10 h-10 rounded-full flex items-center justify-center text-xl hover:scale-110 transition-all duration-200 shadow-lg"
-            onClick={closeModal}
+            type="button"
+            className="absolute top-6 right-6 bg-white/90 hover:bg-white text-gray-800 w-10 h-10 rounded-full flex items-center justify-center text-xl hover:scale-110 transition-all duration-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            onClick={() => setIsModalOpen(false)}
             aria-label="Close modal"
           >
             <FontAwesomeIcon icon={faTimes} />

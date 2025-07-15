@@ -1,12 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-export interface AnalyzeTextRequest {
-  text: string;
-}
-
 import { VisaSponsorshipStatus } from "./jobApi";
 
-export interface AnalyzeTextResponse {
+export type AnalyzeTextRequest = {
+  text: string;
+};
+
+export type AnalyzeTextResponse = {
   id: number;
   job_title: string;
   company_name?: string;
@@ -15,7 +14,7 @@ export interface AnalyzeTextResponse {
   tech_stack: string;
   soft_skills: string;
   years_experience?: string;
-}
+};
 
 export const analyzeTextApi = createApi({
   reducerPath: "analyzeTextApi",

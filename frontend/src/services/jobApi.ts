@@ -8,7 +8,7 @@ export const VisaSponsorshipStatus = {
 
 export type VisaSponsorshipStatus = typeof VisaSponsorshipStatus[keyof typeof VisaSponsorshipStatus];
 
-export interface CreateJobRequest {
+export type CreateJobRequest = {
   job_title: string;
   company_name?: string;
   location?: string;
@@ -16,9 +16,9 @@ export interface CreateJobRequest {
   tech_stack: string;
   soft_skills: string;
   years_experience?: string;
-}
+};
 
-export interface CreateJobResponse {
+export type CreateJobResponse = {
   id: number;
   job_title: string;
   company_name?: string;
@@ -27,15 +27,15 @@ export interface CreateJobResponse {
   tech_stack: string;
   soft_skills: string;
   years_experience?: string;
-}
+};
 
-export interface ApiError {
+export type ApiError = {
   error: {
     message: string;
     type: string;
     details?: Record<string, unknown>;
   };
-}
+};
 
 export const jobApi = createApi({
   reducerPath: "jobApi",
