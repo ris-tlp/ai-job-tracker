@@ -121,6 +121,10 @@ const TrackerPage: React.FC = () => {
           columnDefs={agGridColumns}
           theme={myTheme}
           domLayout="autoHeight"
+          defaultColDef={{ resizable: true }}
+          onGridReady={params => {
+            params.api.sizeColumnsToFit();
+          }}
           loadingOverlayComponentParams={{ loadingMessage: "Loading..." }}
           overlayLoadingTemplate={isLoading ? '<span class="ag-overlay-loading-center">Loading...</span>' : undefined}
         />
