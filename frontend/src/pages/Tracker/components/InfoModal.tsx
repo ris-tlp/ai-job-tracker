@@ -12,7 +12,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ open, onClose, techStack, softSki
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
       <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-8 relative">
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold"
