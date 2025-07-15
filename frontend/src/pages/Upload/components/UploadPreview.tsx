@@ -24,12 +24,11 @@ export const UploadPreview: React.FC<UploadPreviewProps> = ({
     setIsModalOpen(true);
   };
 
-
   const handleRemoveClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.stopPropagation();
     onRemove();
   };
-  
+
   const handleUploadClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.stopPropagation();
     onUpload();

@@ -10,7 +10,11 @@ export const store = configureStore({
     [jobApi.reducerPath]: jobApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(parseImageApi.middleware, analyzeTextApi.middleware, jobApi.middleware),
+    getDefaultMiddleware().concat(
+      parseImageApi.middleware,
+      analyzeTextApi.middleware,
+      jobApi.middleware,
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

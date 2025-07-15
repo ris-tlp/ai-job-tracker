@@ -1,5 +1,10 @@
 import React, { useCallback } from "react";
-import { useCreateJobMutation, VisaSponsorshipStatus, type ApiError, type CreateJobRequest } from "@/services/jobApi";
+import {
+  useCreateJobMutation,
+  VisaSponsorshipStatus,
+  type ApiError,
+  type CreateJobRequest,
+} from "@/services/jobApi";
 import type { AnalyzeTextResponse } from "@/services/analyzeTextApi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { jobIcons } from "./fontAwesomeJobIcons";
@@ -15,7 +20,7 @@ const AnalyzedResult: React.FC<AnalyzedResultProps> = ({ data }) => {
   const handleAddToTracker = useCallback(async () => {
     try {
       if (!data.job_title) {
-        toast.error('Job title is required');
+        toast.error("Job title is required");
         return;
       }
 
@@ -24,17 +29,17 @@ const AnalyzedResult: React.FC<AnalyzedResultProps> = ({ data }) => {
         company_name: data.company_name,
         location: data.location,
         visa_sponsorship: data.visa_sponsorship || VisaSponsorshipStatus.UNAVAILABLE,
-        tech_stack: data.tech_stack || '',
-        soft_skills: data.soft_skills || '',
+        tech_stack: data.tech_stack || "",
+        soft_skills: data.soft_skills || "",
         years_experience: data.years_experience,
       };
 
       await createJob(jobData).unwrap();
-      toast.success('Job added to tracker successfully!');
+      toast.success("Job added to tracker successfully!");
     } catch (error) {
-      console.error('Failed to add job to tracker:', error);
+      console.error("Failed to add job to tracker:", error);
       const apiError = error as { data?: ApiError };
-      const errorMessage = apiError.data?.error?.message || 'Failed to add job to tracker';
+      const errorMessage = apiError.data?.error?.message || "Failed to add job to tracker";
       toast.error(errorMessage);
     }
   }, [data, createJob]);
@@ -148,7 +153,7 @@ const AnalyzedResult: React.FC<AnalyzedResultProps> = ({ data }) => {
           className="mt-4 px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2 self-start"
         >
           <FontAwesomeIcon icon={jobIcons.add} className="text-lg" />
-          {isLoading ? 'Adding...' : 'Add to Tracker'}
+          {isLoading ? "Adding..." : "Add to Tracker"}
         </button>
       </div>
     </div>

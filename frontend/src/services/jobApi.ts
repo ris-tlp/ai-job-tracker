@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const VisaSponsorshipStatus = {
-  AVAILABLE: 'available',
-  NOT_AVAILABLE: 'not_available',
-  UNAVAILABLE: 'unavailable'
+  AVAILABLE: "available",
+  NOT_AVAILABLE: "not_available",
+  UNAVAILABLE: "unavailable",
 } as const;
 
-export type VisaSponsorshipStatus = typeof VisaSponsorshipStatus[keyof typeof VisaSponsorshipStatus];
+export type VisaSponsorshipStatus =
+  (typeof VisaSponsorshipStatus)[keyof typeof VisaSponsorshipStatus];
 
 export type CreateJobRequest = {
   job_title: string;
@@ -42,7 +43,7 @@ export const jobApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "/api/jobs",
     prepareHeaders: (headers) => headers,
-  }),   
+  }),
   endpoints: (builder) => ({
     createJob: builder.mutation<CreateJobResponse, CreateJobRequest>({
       query: (body) => ({
