@@ -119,9 +119,14 @@ const TrackerPage: React.FC = () => {
         <AgGridReact
           rowData={jobs?.jobs ?? []}
           columnDefs={agGridColumns}
+          gridOptions={{
+            autoSizeStrategy: {
+                type: 'fitCellContents'
+            },
+          }}
           theme={myTheme}
           domLayout="autoHeight"
-          defaultColDef={{ resizable: true }}
+          defaultColDef={{ resizable: true, sortable: true, filter: true, unSortIcon: true }}
           onGridReady={params => {
             params.api.sizeColumnsToFit();
           }}
