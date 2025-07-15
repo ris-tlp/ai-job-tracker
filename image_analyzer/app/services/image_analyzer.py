@@ -16,7 +16,7 @@ SYSTEM_PROMPT = """
 You are an expert job description analyzer. Given a block of text, extract the following information as JSON:
 - job_title (string)
 - company_name (string, optional)
-- location (string, optional)
+- location (string, optional): only get the City and US state and not the country.
 - visa_sponsorship (string, required): one of 'available', 'not_available', or 'unavailable'.
 - tech_stack (list of strings)
 - soft_skills (list of strings)
