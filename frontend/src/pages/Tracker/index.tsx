@@ -1,84 +1,138 @@
-import React from "react";
 import { useGetJobsQuery } from "@/services/jobApi";
-import { MaterialReactTable } from "material-react-table";
 import { AppNavbar } from "../../components/layout/AppNavbar";
 import { VisaSponsorshipBadge } from "./components/VisaSponsorshipBadge";
-import type { Job } from "@/services/jobApi";
-import type { MRT_Cell } from "material-react-table";
-const TrackerPage: React.FC = () => {
-  const { data: jobs, isLoading } = useGetJobsQuery();
+import InfoModal from "./components/InfoModal";
+import React, { useState, useCallback } from "react";
 
-  const columns = [
-    {
-      accessorKey: "id",
-      header: "ID",
-      Cell: ({ row }: { row: { index: number } }) => row.index + 1,
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
+import type { ICellRendererParams, ValueGetterParams } from 'ag-grid-community';
+ModuleRegistry.registerModules([AllCommunityModule]);
+
+import { AgGridReact } from 'ag-grid-react';
+import { themeQuartz } from 'ag-grid-community';
+
+
+
+const TrackerPage: React.FC = () => {
+  const [modalRowIndex, setModalRowIndex] = useState<number | null>(null);
+
+  const handleOpenModal = useCallback((rowIndex: number) => {
+    setModalRowIndex(rowIndex);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setModalRowIndex(null);
+  }, []);
+
+  const { data: jobs, isLoading } = useGetJobsQuery();
+  const myTheme = themeQuartz
+  .withParams({
+      accentColor: "#6C63FF",
+      backgroundColor: "#FFFFFF",
+      borderColor: "#000000",
+      borderRadius: 4,
+      browserColorScheme: "light",
+      cellHorizontalPaddingScale: 1,
+      columnBorder: false,
+      fontFamily: {
+          googleFont: "IBM Plex Sans"
+      },
+      headerFontSize: 14,
+      headerFontWeight: 700,
+      headerRowBorder: true,
+      headerTextColor: "#6C63FF",
+      headerVerticalPaddingScale: 1,
+      oddRowBackgroundColor: "#E4E3FF",
+      rowBorder: true,
+      rowVerticalPaddingScale: 1.5,
+      wrapperBorderRadius: 24
+  });
+
+  const agGridColumns = [
+    { headerName: "ID", field: "id", valueGetter: (params: ValueGetterParams) => params.node.rowIndex + 1 },
+    { headerName: "Role", field: "job_title" },
+    { headerName: "Name", field: "company_name" },
+    { headerName: "Location", field: "location" },
+    { 
+      headerName: "Sponsorship", 
+      field: "visa_sponsorship", 
+      cellRenderer: (params: ICellRendererParams) => <VisaSponsorshipBadge status={params.value} /> 
     },
-    { accessorKey: "job_title", header: "Job Title" },
-    { accessorKey: "company_name", header: "Company Name" },
-    { accessorKey: "location", header: "Location" },
+    { headerName: "YOE", field: "years_experience" },
     {
-      accessorKey: "visa_sponsorship",
-      header: "Visa Sponsorship",
-      Cell: ({ cell }: { cell: MRT_Cell<Job> }) => (
-        <VisaSponsorshipBadge status={cell.getValue() as string} />
-      ),
-    },
-    {
-      accessorKey: "tech_stack",
-      header: "Tech Stack",
-      Cell: ({ cell }: { cell: MRT_Cell<Job> }) => {
-        const value = cell.getValue() as string;
-        if (!value) return null;
+      headerName: "More Info",
+      field: "more_info",
+      cellRenderer: (params: ICellRendererParams) => {
+        const rowIndex = params.node?.rowIndex;
         return (
-          <ul className="list-disc pl-4 m-0">
-            {value.split(",").map((item, idx) => (
-              <li key={idx}>{item.trim()}</li>
-            ))}
-          </ul>
+          <span
+            className="text-[var(--color-secondary)] font-semibold transition-colors duration-200 hover:text-[var(--color-primary)] cursor-pointer underline underline-offset-4 m-4"
+            tabIndex={0}
+            role="button"
+            onClick={() => handleOpenModal(rowIndex)}
+            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') handleOpenModal(rowIndex); }}
+          >
+            View
+          </span>
         );
       },
+      autoHeight: true,
+      suppressSizeToFit: true,
+      minWidth: 120,
+      maxWidth: 180,
     },
-    {
-      accessorKey: "soft_skills",
-      header: "Soft Skills",
-      Cell: ({ cell }: { cell: MRT_Cell<Job> }) => {
-        const value = cell.getValue() as string;
-        if (!value) return null;
-        return (
-          <ul className="list-disc pl-4 m-0">
-            {value.split(",").map((item, idx) => (
-              <li key={idx}>{item.trim()}</li>
-            ))}
-          </ul>
-        );
-      },
-    },
-    { accessorKey: "years_experience", header: "Years Experience" },
-    {
-      accessorKey: "created_at",
-      header: "Created At",
-      Cell: ({ cell }: { cell: MRT_Cell<Job> }) => {
-        const value = cell.getValue() as string;
-        if (!value) return null;
-        const date = new Date(value);
+    { 
+      headerName: "Created At", 
+      field: "created_at", 
+      cellRenderer: (params) => {
+        if (!params.value) return null;
+        const date = new Date(params.value);
         return isNaN(date.getTime())
-          ? value
+          ? params.value
           : date.toLocaleDateString(undefined, {
               year: "numeric",
               month: "short",
               day: "numeric",
             });
-      },
+      }
     },
   ];
 
   return (
     <>
       <AppNavbar />
-      <div style={{ padding: 24, paddingTop: 88 }}>
-        <h2>Job Tracker</h2>
-        <MaterialReactTable columns={columns} data={jobs?.jobs ?? []} state={{ isLoading }} />
+      <div
+        className="ag-theme-quartz"
+        style={{
+          minHeight: '80vh',
+          maxWidth: 1200,
+          margin: '48px auto 32px auto',
+          padding: '32px 24px 24px 24px',
+          background: '#fff',
+          borderRadius: 24,
+          boxShadow: '0 4px 24px 0 rgba(80, 80, 120, 0.08)',
+          border: '1px solid #ececec',
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        <AgGridReact
+          rowData={jobs?.jobs ?? []}
+          columnDefs={agGridColumns}
+          theme={myTheme}
+          domLayout="autoHeight"
+          loadingOverlayComponentParams={{ loadingMessage: "Loading..." }}
+          overlayLoadingTemplate={isLoading ? '<span class="ag-overlay-loading-center">Loading...</span>' : undefined}
+        />
+        {modalRowIndex !== null && jobs?.jobs && jobs.jobs[modalRowIndex] && (
+          <InfoModal
+            open={modalRowIndex !== null}
+            onClose={handleCloseModal}
+            techStack={jobs.jobs[modalRowIndex].tech_stack}
+            softSkills={jobs.jobs[modalRowIndex].soft_skills}
+            createdAt={jobs.jobs[modalRowIndex].created_at}
+          />
+        )}
       </div>
     </>
   );
