@@ -38,7 +38,7 @@ def create_error_response(
 
 
 @router.post(
-	"/",
+	"",
 	response_model=JobResponseSchema,
 	status_code=status.HTTP_201_CREATED,
 	responses={

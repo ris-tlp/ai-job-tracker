@@ -30,6 +30,7 @@ export default defineConfig(({ mode }) => {
         '/api/jobs': {
           target: env.VITE_API_URL_JOB_TRACKER,
           changeOrigin: true,
+          secure: false,
           rewrite: (path) => path.replace(/^\/api\/jobs/, env.VITE_API_VERSION)
         }
       }
