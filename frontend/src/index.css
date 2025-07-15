@@ -30,6 +30,166 @@ body {
   overflow-x: hidden;
 }
 
+/* Modern DataTable Styles */
+.p-datatable {
+  --surface-a: var(--color-bg);
+  --surface-0: var(--color-surface);
+  --surface-100: #f3f4f6;
+  --surface-200: #e5e7eb;
+  --surface-300: #d1d5db;
+  --surface-400: #9ca3af;
+  --surface-500: #6b7280;
+  --text-color: var(--color-text-main);
+  --text-color-secondary: var(--color-text-muted);
+  --primary-color: var(--color-primary);
+  --primary-color-text: #ffffff;
+  --secondary-color: var(--color-secondary);
+  --secondary-color-text: #ffffff;
+  --accent-color: var(--color-accent);
+  --accent-color-text: #ffffff;
+  --hover-bg: var(--surface-100);
+  --focus-ring-color: var(--color-primary);
+  --focus-ring: 0 0 0 3px rgba(var(--color-primary-rgb), 0.12);
+  --shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-2: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+.p-datatable .p-datatable-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--surface-200);
+  padding: 1rem;
+  color: var(--color-text-main);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.p-datatable .p-column-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--surface-200);
+  color: var(--color-text-main);
+  font-weight: 500;
+  padding: 1rem;
+  text-transform: capitalize;
+}
+
+.p-datatable .p-column-header-content {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  transition: all 0.2s ease;
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+  background-color: var(--surface-100);
+  transform: translateY(-1px);
+}
+
+.p-datatable .p-datatable-tbody > tr.p-highlight {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+}
+
+.p-datatable .p-datatable-tbody > tr.p-highlight:hover {
+  background-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.p-datatable .p-datatable-tbody td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--surface-200);
+  vertical-align: middle;
+}
+
+.p-datatable .p-datatable-tfoot {
+  background: var(--color-surface);
+  border-top: 1px solid var(--surface-200);
+}
+
+.p-datatable .p-paginator {
+  background: var(--color-surface);
+  border-top: 1px solid var(--surface-200);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.p-datatable .p-paginator .p-paginator-pages {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.p-datatable .p-paginator .p-paginator-pages .p-paginator-page {
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--surface-200);
+  transition: all 0.2s ease;
+}
+
+.p-datatable .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+  border-color: var(--color-primary);
+}
+
+.p-datatable .p-paginator .p-paginator-pages .p-paginator-page:hover:not(.p-highlight) {
+  background-color: var(--surface-100);
+  border-color: var(--surface-200);
+}
+
+.p-datatable .p-paginator .p-paginator-first,
+.p-datatable .p-paginator .p-paginator-prev,
+.p-datatable .p-paginator .p-paginator-next,
+.p-datatable .p-paginator .p-paginator-last {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--surface-200);
+  transition: all 0.2s ease;
+}
+
+.p-datatable .p-paginator .p-paginator-first:hover,
+.p-datatable .p-paginator .p-paginator-prev:hover,
+.p-datatable .p-paginator .p-paginator-next:hover,
+.p-datatable .p-paginator .p-paginator-last:hover {
+  background-color: var(--surface-100);
+  border-color: var(--surface-200);
+}
+
+.p-datatable .p-paginator .p-paginator-first.p-highlight,
+.p-datatable .p-paginator .p-paginator-prev.p-highlight,
+.p-datatable .p-paginator .p-paginator-next.p-highlight,
+.p-datatable .p-paginator .p-paginator-last.p-highlight {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+  border-color: var(--color-primary);
+}
+
+.p-datatable .p-paginator .p-paginator-current {
+  font-weight: 500;
+  color: var(--color-text-main);
+}
+
+.p-datatable .p-paginator .p-dropdown {
+  border-radius: 0.5rem;
+  border: 1px solid var(--surface-200);
+  padding: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.p-datatable .p-paginator .p-dropdown:hover {
+  border-color: var(--surface-300);
+}
+
+.p-datatable .p-paginator .p-dropdown .p-dropdown-label {
+  padding: 0.5rem 1rem;
+}
+
+/* Floating animation */
+
 /* Floating animation */
 @keyframes float {
   0%,
