@@ -9,4 +9,3 @@ async def get_job_repository(
 	session: AsyncSession = Depends(get_session),
 ) -> JobRepository:
 	return JobRepository(session)
-
