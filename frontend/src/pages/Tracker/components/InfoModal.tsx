@@ -8,7 +8,13 @@ interface InfoModalProps {
   createdAt?: string;
 }
 
-const InfoModal: React.FC<InfoModalProps> = ({ open, onClose, techStack, softSkills, createdAt }) => {
+const InfoModal: React.FC<InfoModalProps> = ({
+  open,
+  onClose,
+  techStack,
+  softSkills,
+  createdAt,
+}) => {
   if (!open) return null;
 
   return (
@@ -18,7 +24,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ open, onClose, techStack, softSki
     >
       <div
         className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-8 relative"
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold"
@@ -51,7 +57,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ open, onClose, techStack, softSki
           <h3 className="font-medium text-gray-700 mb-2">Tech Stack</h3>
           {techStack ? (
             <ul className="list-disc pl-5 text-gray-800">
-              {techStack.split(',').map((item, idx) => (
+              {techStack.split(",").map((item, idx) => (
                 <li key={idx}>{item.trim()}</li>
               ))}
             </ul>
@@ -63,7 +69,7 @@ const InfoModal: React.FC<InfoModalProps> = ({ open, onClose, techStack, softSki
           <h3 className="font-medium text-gray-700 mb-2">Soft Skills</h3>
           {softSkills ? (
             <ul className="list-disc pl-5 text-gray-800">
-              {softSkills.split(',').map((item, idx) => (
+              {softSkills.split(",").map((item, idx) => (
                 <li key={idx}>{item.trim()}</li>
               ))}
             </ul>
