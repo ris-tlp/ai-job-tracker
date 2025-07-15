@@ -9,7 +9,7 @@ import type { ICellRendererParams, ValueGetterParams } from 'ag-grid-community';
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 import { AgGridReact } from 'ag-grid-react';
-import { themeQuartz } from 'ag-grid-community';
+import { theme } from './components/agGridTheme';
 
 
 
@@ -25,28 +25,7 @@ const TrackerPage: React.FC = () => {
   }, []);
 
   const { data: jobs, isLoading } = useGetJobsQuery();
-  const myTheme = themeQuartz
-  .withParams({
-      accentColor: "#6C63FF",
-      backgroundColor: "#FFFFFF",
-      borderColor: "#000000",
-      borderRadius: 4,
-      browserColorScheme: "light",
-      cellHorizontalPaddingScale: 1,
-      columnBorder: false,
-      fontFamily: {
-          googleFont: "IBM Plex Sans"
-      },
-      headerFontSize: 14,
-      headerFontWeight: 700,
-      headerRowBorder: true,
-      headerTextColor: "#6C63FF",
-      headerVerticalPaddingScale: 1,
-      oddRowBackgroundColor: "#E4E3FF",
-      rowBorder: true,
-      rowVerticalPaddingScale: 1.5,
-      wrapperBorderRadius: 24
-  });
+
 
   const agGridColumns = [
     { headerName: "ID", field: "id", valueGetter: (params: ValueGetterParams) => params.node.rowIndex + 1 },
@@ -124,7 +103,7 @@ const TrackerPage: React.FC = () => {
                 type: 'fitCellContents'
             },
           }}
-          theme={myTheme}
+          theme={theme}
           domLayout="autoHeight"
           defaultColDef={{ resizable: true, sortable: true, filter: true, unSortIcon: true }}
           onGridReady={params => {
