@@ -19,7 +19,7 @@ export type CreateJobRequest = {
   years_experience?: string;
 };
 
-export type CreateJobResponse = {
+export type Job = {
   id: number;
   job_title: string;
   company_name?: string;
@@ -28,6 +28,14 @@ export type CreateJobResponse = {
   tech_stack: string;
   soft_skills: string;
   years_experience?: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CreateJobResponse = Job;
+
+export type GetJobsResponse = {
+  jobs: Job[];
 };
 
 export type ApiError = {
@@ -53,7 +61,12 @@ export const jobApi = createApi({
         headers: { "Content-Type": "application/json" },
       }),
     }),
+    getJobs: builder.query<GetJobsResponse, void>({
+      query: () => ({
+        url: "jobs",
+      }),
+    }),
   }),
 });
 
-export const { useCreateJobMutation } = jobApi;
+export const { useCreateJobMutation, useGetJobsQuery } = jobApi;
