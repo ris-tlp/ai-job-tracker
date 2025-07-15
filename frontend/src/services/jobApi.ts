@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const VisaSponsorshipStatus = {
-  AVAILABLE: 'AVAILABLE',
-  UNAVAILABLE: 'UNAVAILABLE'
+  AVAILABLE: 'available',
+  NOT_AVAILABLE: 'not_available',
+  UNAVAILABLE: 'unavailable'
 } as const;
 
 export type VisaSponsorshipStatus = typeof VisaSponsorshipStatus[keyof typeof VisaSponsorshipStatus];

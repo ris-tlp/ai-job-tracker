@@ -7,6 +7,7 @@ import {
   faHandshake,
   faCalendarAlt,
   faMagnifyingGlass,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const jobIcons = {
@@ -18,4 +19,5 @@ export const jobIcons = {
   soft: faHandshake,
   experience: faCalendarAlt,
   analysis: faMagnifyingGlass,
+  add: faPlus,
 };

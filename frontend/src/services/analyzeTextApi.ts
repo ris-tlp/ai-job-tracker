@@ -4,12 +4,14 @@ export interface AnalyzeTextRequest {
   text: string;
 }
 
+import { VisaSponsorshipStatus } from "./jobApi";
+
 export interface AnalyzeTextResponse {
   id: number;
   job_title: string;
   company_name?: string;
   location?: string;
-  visa_sponsorship?: boolean;
+  visa_sponsorship?: VisaSponsorshipStatus;
   tech_stack: string;
   soft_skills: string;
   years_experience?: string;
