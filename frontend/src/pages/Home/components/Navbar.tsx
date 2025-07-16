@@ -3,8 +3,7 @@ import Logo from "../../../components/ui/Logo";
 
 const NAV_LINKS = [
   { name: "Features", to: "upload" },
-  { name: "Login", to: "login" },
-  { name: "Sign Up", to: "signup", cta: true },
+  { name: "Get Started", to: "upload", cta: true },
 ];
 
 const Navbar: React.FC = () => (
@@ -18,22 +17,28 @@ const Navbar: React.FC = () => (
       </div>
       <div className="hidden md:flex gap-6 items-center">
         {NAV_LINKS.map((link) => (
-          <ScrollLink
-            key={link.name}
-            to={link.to}
-            smooth={true}
-            duration={500}
-            offset={-80}
-            className={`cursor-pointer text-base font-semibold px-4 py-2 rounded transition-colors duration-150 ${
-              link.cta
-                ? "bg-[var(--color-primary)] text-white hover:bg-[var(--color-secondary)] shadow"
-                : "text-gray-700 hover:text-[var(--color-primary)]"
-            }`}
-            activeClass="!text-[var(--color-primary)] font-bold"
-            spy={true}
-          >
-            {link.name}
-          </ScrollLink>
+          link.cta ? (
+            <a
+              key={link.name}
+              href="/upload"
+              className="cursor-pointer text-base font-semibold px-4 py-2 rounded transition-colors duration-150 bg-[var(--color-primary)] text-white hover:bg-[var(--color-secondary)] shadow"
+            >
+              {link.name}
+            </a>
+          ) : (
+            <ScrollLink
+              key={link.name}
+              to={link.to}
+              smooth={true}
+              duration={500}
+              offset={-80}
+              className="cursor-pointer text-base font-semibold px-4 py-2 rounded transition-colors duration-150 text-gray-700 hover:text-[var(--color-primary)]"
+              activeClass="!text-[var(--color-primary)] font-bold"
+              spy={true}
+            >
+              {link.name}
+            </ScrollLink>
+          )
         ))}
       </div>
     </div>
