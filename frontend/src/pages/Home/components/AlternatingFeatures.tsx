@@ -5,7 +5,7 @@ import { faUpload, faBolt, faChartLine } from "@fortawesome/free-solid-svg-icons
 
 const sections = [
   {
-    img: "https://picsum.photos/900/1600",
+    img: "/assets/landing_1.png",
     title: "Effortless Uploads",
     desc: "Drag and drop your job screenshots. Our AI does the rest—no manual entry required.",
     color: "primary",
@@ -20,7 +20,7 @@ const sections = [
     ),
   },
   {
-    img: "https://picsum.photos/900/1600",
+    img: "/assets/landing_2.png",
     title: "AI Summaries",
     desc: "Get instant, actionable summaries and recommendations tailored to you.",
     color: "secondary",
@@ -35,7 +35,7 @@ const sections = [
     ),
   },
   {
-    img: "https://picsum.photos/900/1600",
+    img: "/assets/landing_3.png",
     title: "Track Every Opportunity",
     desc: "Stay organized with a beautiful, interactive tracker. Monitor your applications, interviews, and offers—all in one place.",
     color: "accent",
@@ -63,8 +63,8 @@ const AlternatingFeatures: React.FC = () => (
           <img
             src={section.img}
             alt={section.title}
-            className={`w-full h-full object-cover rounded-none md:shadow-xl
-    ${section.reverse ? "md:rounded-l-3xl md:border-l-8" : "md:rounded-r-3xl md:border-r-8"}
+            className={`w-full h-full object-contain rounded-none md:shadow-xl
+    ${section.reverse ? "md:rounded-l-xl md:border-l-4" : "md:rounded-r-xl md:border-r-4"}
   `}
             style={{ borderColor: `var(--color-${section.color})` }}
           />
