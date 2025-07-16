@@ -52,21 +52,27 @@ const sections = [
 ];
 
 const AlternatingFeatures: React.FC = () => (
-  <section className="w-full">
-    {sections.map((section) => (
+  <section className="w-full bg-[var(--color-bg)]">
+    {sections.map((section, idx) => (
       <Element
         name={section.name}
         key={section.title}
-        className={`flex flex-col ${section.reverse ? "md:flex-row-reverse" : "md:flex-row"} items-stretch min-h-[50vh] w-full`}
+        className={`flex flex-col ${section.reverse ? "md:flex-row-reverse" : "md:flex-row"} items-stretch min-h-[50vh] w-full mb-16 ${idx === 0 ? "mt-16" : ""}`}
       >
         <div className="md:w-1/2 w-full h-[50vh] flex items-center justify-center">
           <img
             src={section.img}
             alt={section.title}
-            className={`w-full h-full object-contain rounded-none md:shadow-xl
-    ${section.reverse ? "md:rounded-l-xl md:border-l-4" : "md:rounded-r-xl md:border-r-4"}
+            className={`w-full h-full object-contain
+  ${section.reverse
+    ? "rounded-tl-[6rem] rounded-br-[4rem] rounded-tr-md rounded-bl-sm md:-translate-x-10 md:-translate-y-6 md:-rotate-3"
+    : "rounded-tr-[6rem] rounded-bl-[4rem] rounded-tl-md rounded-br-sm md:translate-x-10 md:-translate-y-6 md:rotate-3"}
   `}
-            style={{ borderColor: `var(--color-${section.color})` }}
+            style={{
+              boxShadow: `0 2px 12px 0 var(--color-${section.color}, rgba(0,0,0,0.06))`,
+              border: '2px solid rgba(0,0,0,0.04)',
+              borderColor: `var(--color-${section.color})`,
+            }}
           />
         </div>
         <div
