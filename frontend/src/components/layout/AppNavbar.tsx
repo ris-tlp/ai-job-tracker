@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import Logo from "../ui/Logo";
+import Logo from "@/components/ui/Logo";
 
 const NAV_LINKS = [
   { name: "Job Tracker", to: "/tracker" },

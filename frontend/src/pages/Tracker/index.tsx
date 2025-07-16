@@ -1,7 +1,7 @@
 import { useGetJobsQuery } from "@/services/jobApi";
-import { AppNavbar } from "../../components/layout/AppNavbar";
-import { VisaSponsorshipBadge } from "./components/VisaSponsorshipBadge";
-import InfoModal from "./components/InfoModal";
+import { AppNavbar } from "@/components/layout/AppNavbar";
+import { VisaSponsorshipBadge } from "@/pages/Tracker/components/VisaSponsorshipBadge";
+import InfoModal from "@/pages/Tracker/components/InfoModal";
 import React, { useState, useCallback } from "react";
 
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";

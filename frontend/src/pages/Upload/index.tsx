@@ -4,9 +4,9 @@ import type { AnalyzeTextResponse } from "@/services/analyzeTextApi";
 import { useDropzone, type FileWithPath } from "react-dropzone";
 import { useParseImageMutation } from "../../services/parseImageApi";
 import { useAnalyzeTextMutation } from "../../services/analyzeTextApi";
-import { AppNavbar } from "../../components/layout/AppNavbar";
-import { UploadPreview } from "./components/UploadPreview";
-import { ParsedDataViewer } from "./components/ParsedDataViewer";
+import { AppNavbar } from "@/components/layout/AppNavbar";
+import { UploadPreview } from "@/pages/Upload/components/UploadPreview";
+import { ParsedDataViewer } from "@/pages/Upload/components/ParsedDataViewer";
 
 const UploadPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);

@@ -1,11 +1,11 @@
 import React from "react";
 import { Element } from "react-scroll";
-import Hero from "./components/Hero";
-import AlternatingFeatures from "./components/AlternatingFeatures";
-import Testimonial from "./components/Testimonial";
-import FinalCTA from "./components/FinalCTA";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
+import Hero from "@/pages/Home/components/Hero";
+import AlternatingFeatures from "@/pages/Home/components/AlternatingFeatures";
+import Testimonial from "@/pages/Home/components/Testimonial";
+import FinalCTA from "@/pages/Home/components/FinalCTA";
+import Footer from "@/pages/Home/components/Footer";
+import Navbar from "@/pages/Home/components/Navbar";
 
 const HomePage: React.FC = () => {
   return (
