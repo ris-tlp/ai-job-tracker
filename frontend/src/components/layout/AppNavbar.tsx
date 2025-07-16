@@ -25,7 +25,7 @@ const AppNavbar: React.FC = () => {
               to={link.to}
               className={`text-base font-semibold px-4 py-2 rounded transition-colors duration-150 cursor-pointer ${
                 location.pathname === link.to
-                  ? "bg-[var(--color-primary)] text-white font-bold shadow hover:bg-[var(--color-secondary)]"
+                  ? "text-[var(--color-primary)] font-bold"
                   : "text-gray-700 hover:text-[var(--color-primary)]"
               }`}
             >
