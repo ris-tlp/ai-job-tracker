@@ -1,4 +1,3 @@
-# Dockerfile for job_tracker (FastAPI)
 FROM python:3.11-slim
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
