@@ -29,17 +29,17 @@ const Hero: React.FC = () => {
       <div className="relative z-10 container mx-auto px-6 h-full flex flex-col lg:flex-row items-center justify-between py-20 lg:py-0">
         <div className="lg:w-1/2 text-center lg:text-left mb-16 lg:mb-0">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-[var(--color-accent)] leading-tight">
-            Land Your Dream Job <span className="text-[var(--color-primary)]">Faster</span>
+            Track Your Dream Job <span className="text-[var(--color-primary)]">Faster</span>
           </h1>
 
           <p className="text-xl md:text-2xl mb-10 text-[var(--color-text-muted)] max-w-2xl mx-auto lg:mx-0 leading-relaxed">
             Transform your job search with AI-powered tracking. Upload screenshots, get instant
-            insights, and never miss an opportunity again.
+            insights, and never waste time manually tracking job opportunities again.
           </p>
 
           <div className="cta-buttons flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <a
-              href="#signup"
+              href="/upload"
               className="bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-white font-bold px-8 py-4 rounded-full shadow-lg text-lg transition-colors duration-200 inline-flex items-center justify-center transform active:scale-95"
             >
               <span>Get Started Free</span>
@@ -67,8 +67,8 @@ const Hero: React.FC = () => {
               <div className="text-sm text-[var(--color-text-muted)]">AI Insights</div>
             </div>
             <div className="text-center col-span-2 md:col-span-1">
-              <div className="text-3xl font-bold text-[var(--color-accent)] mb-1">100+</div>
-              <div className="text-sm text-[var(--color-text-muted)]">Happy Users</div>
+              <div className="text-3xl font-bold text-[var(--color-accent)] mb-1">15+</div>
+              <div className="text-sm text-[var(--color-text-muted)]">Minutes Saved per Job Application</div>
             </div>
           </div>
         </div>
@@ -91,7 +91,6 @@ const Hero: React.FC = () => {
             <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-[var(--color-accent)]/10 blur-xl"></div>
             <div className="absolute -bottom-10 -left-10 w-48 h-48 rounded-full bg-[var(--color-primary)]/10 blur-xl"></div>
 
-            {/* Floating elements */}
             <div className="absolute top-20 right-20 w-6 h-6 rounded-full bg-[var(--color-secondary)]/30 animate-float"></div>
             <div className="absolute top-1/3 left-10 w-5 h-5 rounded-full bg-[var(--color-accent)]/30 animate-float animation-delay-2000"></div>
             <div className="absolute bottom-20 right-20 w-4 h-4 rounded-full bg-[var(--color-primary)]/30 animate-float animation-delay-3000"></div>

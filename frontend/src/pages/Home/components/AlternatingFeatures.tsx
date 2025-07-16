@@ -7,7 +7,7 @@ const sections = [
   {
     img: "/assets/landing_1.png",
     title: "Effortless Uploads",
-    desc: "Drag and drop your job screenshots. Our AI does the rest—no manual entry required.",
+    desc: "Drag and drop or paste your job screenshots taken from browser's native screenshot tool. Our AI does the rest, no manual entry required.",
     color: "primary",
     reverse: false,
     name: "upload",
@@ -22,7 +22,7 @@ const sections = [
   {
     img: "/assets/landing_2.png",
     title: "AI Summaries",
-    desc: "Get instant, actionable summaries and recommendations tailored to you.",
+    desc: "Get instant, actionable summaries that detail job requirements, visa sponsorship availability, and more.",
     color: "secondary",
     reverse: true,
     name: "summaries",
@@ -37,7 +37,7 @@ const sections = [
   {
     img: "/assets/landing_3.png",
     title: "Track Every Opportunity",
-    desc: "Stay organized with a beautiful, interactive tracker. Monitor your applications, interviews, and offers—all in one place.",
+    desc: "Stay organized with a beautiful, interactive tracker. Instantly add jobs of interest right after generating an AI summary, no more forgetting important details or manually copying information.",
     color: "accent",
     reverse: false,
     name: "tracker",

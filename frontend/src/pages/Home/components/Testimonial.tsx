@@ -11,11 +11,14 @@ const Testimonial: React.FC = () => (
           className="w-16 h-16 rounded-full border-4 border-[var(--color-primary)] shadow mb-2"
         />
         <span className="text-lg font-bold text-[var(--color-primary)]">
-          Omar Khan, Software Engineer
+          Omar Khan
+        </span>
+        <span className="text-sm text-gray-500">
+          a Software Engineer you should hire
         </span>
       </div>
       <blockquote className="text-xl italic text-[var(--color-text-muted)]">
-        “This platform made hiring and tracking jobs effortless. The AI summaries are spot on and
+        “This platform made tracking job applications effortless. The AI summaries are spot on and
         the interface is gorgeous!”
       </blockquote>
     </div>

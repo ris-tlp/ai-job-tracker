@@ -13,10 +13,10 @@ const FinalCTA: React.FC = () => (
       Sign up now and let AI supercharge your job search journey.
     </p>
     <a
-      href="#signup"
+      href="/upload"
       className="bg-[var(--color-primary)] text-white font-bold px-10 py-4 rounded-full shadow-lg hover:bg-[var(--color-secondary)] transition-colors duration-200 text-lg"
     >
-      Create Free Account
+      Get Started
     </a>
   </Element>
 );
