@@ -9,12 +9,12 @@ const NAV_LINKS = [
 const Navbar: React.FC = () => (
   <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur border-b border-gray-100 shadow-sm">
     <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-      <div className="flex items-center space-x-2">
-        <Logo className="h-8 w-auto text-[var(--color-primary)]" />
-        <span className="text-2xl font-extrabold text-[var(--color-primary)] tracking-tight">
+      <a href="/" className="flex items-center space-x-2 group">
+        <Logo className="h-8 w-auto text-[var(--color-primary)] group-hover:opacity-80 transition" />
+        <span className="text-2xl font-extrabold text-[var(--color-primary)] tracking-tight group-hover:underline">
           AI Job Portal
         </span>
-      </div>
+      </a>
       <div className="hidden md:flex gap-6 items-center">
         {NAV_LINKS.map((link) => (
           link.cta ? (
