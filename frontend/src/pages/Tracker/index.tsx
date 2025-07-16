@@ -101,19 +101,7 @@ const TrackerPage: React.FC = () => {
       <div className="relative z-20">
         <AppNavbar />
         <div
-          className="ag-theme-quartz"
-          style={{
-            minHeight: "80vh",
-            maxWidth: 1200,
-            margin: "128px auto 32px auto",
-            padding: "32px 24px 24px 24px",
-            background: "#fff",
-            borderRadius: 24,
-            boxShadow: "0 4px 24px 0 rgba(80, 80, 120, 0.08)",
-            border: "1px solid #ececec",
-            position: "relative",
-            zIndex: 1,
-          }}
+          className="ag-theme-quartz min-h-[50vh] max-w-[1200px] mx-auto mt-[128px] mb-[32px] px-6 pt-8 pb-6 bg-white rounded-3xl shadow-[0_4px_24px_0_rgba(80,80,120,0.08)] border border-[#ececec] relative z-10"
         >
           <h1 className="text-3xl md:text-4xl font-extrabold text-[var(--color-primary)] text-center mb-8 tracking-tight drop-shadow-sm">
             Job Tracker
